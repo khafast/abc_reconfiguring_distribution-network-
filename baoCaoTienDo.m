@@ -6,6 +6,5 @@ import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
 logger.setLevel( logLevel );
 
-logger.info(['so luong linedata : ' num2str(numel(linedata))  ' (don vi)'])
-logger.info(['so luong powerdata: ' num2str(numel(powerdata)) ' (don vi)'])
+logger.info(['linedata : ' num2str(numel(linedata))  ' (rows); ' 'powerdata: ' num2str(numel(powerdata)) ' (rows)'])
 end

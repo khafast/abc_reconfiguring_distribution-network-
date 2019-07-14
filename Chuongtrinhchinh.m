@@ -32,7 +32,7 @@ logLevel = Level.INFO;
 logManager = LogManager.getLogManager();
 
 % add a file handler to the root logger
-fileHandler = FileHandler('./_bao_cao_lan_phan_tich_gan_nhat.log');
+fileHandler = FileHandler('./_bao_cao_toan_bo_chuong_trinh.log');
 fileHandler.setLevel( Level.ALL );
 rootLogger = logManager.getLogger('Chuongtrinhchinh');
 rootLogger.addHandler( fileHandler );
@@ -92,6 +92,8 @@ end
 [cutlist] = ABCmain(Udm, linedata, powerdata);
 
 logger.info('Phan tich du lieu thu duoc (Start)')
+logger.info(['Danh sach cac nhanh cat: ' num2str(cutlist)]);
+logger.info('{');
 lineDataAfterRun = linedata;
 for i=1:length(cutlist)
     m = cutlist(i) == lineDataAfterRun(:,1);
@@ -100,17 +102,20 @@ for i=1:length(cutlist)
     tmpLineData = lineDataAfterRun(m,:);
     nutDau = num2str(tmpLineData(2));
     nutCuoi = num2str(tmpLineData(3));
+    logger.info(['loai bo linedata: ' num2str(lineDataAfterRun(m,:))]);
     % end for plot
     
-    %TODO: bug index, remove item will change index of later rows
     lineDataAfterRun(m,:)=[];
     
     % plot
     %figure('Name', ['(' num2str(i) ') Hinh sau khi cat giua #' nutDau ' va #' nutCuoi]); 
     %plot(graph(adj(lineDataAfterRun)));
 end
+logger.info('}');
 
+baoCaoTienDo(lineDataAfterRun, powerdata);
 [~, powerDataAfterRun] = ruttia(Udm, lineDataAfterRun, powerdata);
+logger.info('tinh xong powerDataAfterABC');
 
 dienap = sutap(Udm, cutlist, linedata, powerDataAfterRun);
 Vmin = min(dienap(:,2));

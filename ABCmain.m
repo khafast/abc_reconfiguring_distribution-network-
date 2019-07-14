@@ -3,7 +3,7 @@ global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
 logger.setLevel( logLevel );
-logger.info('(Start)')
+logger.info('(Start)');
 
 format short G;
 %Khoi tao
@@ -135,5 +135,5 @@ Ptatal = powerdata(m,5);
 Ploss = Ptatal-Ptatalload;
 DeltaP = Ploss/Ptatal*100;
 
-logger.info('(Success)')
+logger.info('(Success)');
 end

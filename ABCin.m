@@ -144,18 +144,20 @@ for it=1:MaxIt
     end
     
     % Update Best Solution Ever Found
-    for i=1:nPop
-        if real(pop(i).Cost.ploss)<=real(BestSol.Cost.ploss);
-           BestSol=pop(i);
+    for i = 1:nPop
+        if real(pop(i).Cost.ploss) <= real(BestSol.Cost.ploss)
+           BestSol = pop(i);
         end
     end
     
-    if  real(BestSol.Cost.ploss)<= Ploss
+    if  real(BestSol.Cost.ploss) < Ploss
         Ploss=real(BestSol.Cost.ploss);
         Bestpower=BestSol.Cost.power;
         nhanhcat=BestSol.Position;
         logger.fine(['vong lap vong doc lap ' num2str(it) ]);
-        logger.info(['Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(nhanhcat)]);
+        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(nhanhcat)]);
+    else
+        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(nhanhcat)]);
     end
 end
 logger.info('(Success)')

@@ -103,14 +103,16 @@ for it = 1:soVongLapToiDa
     end
     
     %% Store Best Cost Ever Found
-    if  real(BestSol.Cost.ploss) <= Ploss
+    if  real(BestSol.Cost.ploss) < Ploss
         Ploss = real(BestSol.Cost.ploss);
         Bestpower = BestSol.Cost.power;
         nhanhcat = BestSol.Position;
         
         %Xuat trang thai chay
         logger.fine(['Chay vong lap tren vong kep lan  ' num2str(it)]);
-        logger.info(['Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';']);
+        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';'])
+    else
+        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';'])
     end
     
 end
