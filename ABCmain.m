@@ -28,17 +28,17 @@ linedata(n,:)=[];
 cutlist=[cutlist,nhanhlienketnguon];
 %----------Loc cac nhanh tia khoi luoi-------------------------------------
 logger.info('Loc cac nhanh tia ra khoi luoi (Start)')
-[linedata, powerdata] = ruttia(Udm,linedata,powerdata);
+[linedata, powerdata] = ruttia(Udm, linedata, powerdata);
 linedata = locnhanhtrung(linedata);
 
-[linedata, powerdata] = ruttia(Udm,linedata,powerdata);
-[linedata, powerdata] = thugon(linedata,powerdata);
+[linedata, powerdata] = ruttia(Udm, linedata, powerdata);
+[linedata, powerdata] = thugon(linedata, powerdata);
 
-[linedata, powerdata] = ruttia(Udm,linedata,powerdata);
+[linedata, powerdata] = ruttia(Udm, linedata, powerdata);
 linedata = locnhanhtrung(linedata);
 logger.info('Loc cac nhanh tia ra khoi luoi (Success)')
 %------------------------------MAIN----------------------------------------
-        
+
 %----------Tim vong doc lap------------------------------------------------
 
 VongDL = indeloop(linedata);
@@ -56,34 +56,35 @@ while linedatarong == 0
     i = 0;
     while numel(VongDL) > 0 %dieu kien quet vong doc lap
         %Quet cac vong doc lap
-            i = i+1;
-            linedataindeloop = [];
-            %Tim so nut co lien ket ngoai
-            for j = 1:size(VongDL,2)
-                n = VongDL(i, j) == linedata(:,1);
-                linedataindeloop = [linedataindeloop;linedata(n,:)];
+        i = i+1;
+        linedataindeloop = [];
+        %Tim so nut co lien ket ngoai
+        for j = 1:size(VongDL,2)
+            n = VongDL(i, j) == linedata(:,1);
+            linedataindeloop = [linedataindeloop;linedata(n,:)];
+        end
+        nutlkn=nutlienketngoai(linedata,linedataindeloop);
+        %Neu chi co 1 nut co lien ket ngoai thi do la nut nguon
+        % va cho chay ABC v cap nhat linedata powerdata
+        if numel(nutlkn) < 2
+            [nhanhcat] = ABCin(VongDL(i,:), Udm, linedata, powerdata);
+            cutlist = [cutlist,nhanhcat];
+            %Loc tia va tinh cong suat
+            q = nhanhcat == linedata(:,1);
+            linedata(q,:) = [];
+            [ linedata, powerdata ] = ruttia(Udm,linedata,powerdata);
+            for k = 1:numel(VongDL(i,:))
+                m = VongDL(i,k) == linedata(:,1);
+                linedata(m,1) = 0;
             end
-            nutlkn=nutlienketngoai(linedata,linedataindeloop);
-            %Neu chi co 1 nut co lien ket ngoai thi do la nut nguon
-            % va cho chay ABC v cap nhat linedata powerdata
-            if numel(nutlkn) < 2
-               [nhanhcat] = ABCin(VongDL(i,:), Udm, linedata, powerdata);
-               cutlist = [cutlist,nhanhcat];
-                %Loc tia va tinh cong suat
-                q = nhanhcat == linedata(:,1);
-                linedata(q,:) = [];
-               [ linedata, powerdata ] = ruttia(Udm,linedata,powerdata);
-               for k = 1:numel(VongDL(i,:))
-                   m = VongDL(i,k) == linedata(:,1);
-                   linedata(m,1) = 0;
-               end
-               VongDL(i,:) = [];
-               p = linedata(:,1) == 0;
-               linedata(p,:) = [];
-               i = 0;
-               % Loc tia va tinh cong suat
-               % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút    ngu?n th? c?p (nút r? nhánh) 
-               [ linedata,powerdata ] = ruttia(Udm,linedata,powerdata);
+            VongDL(i,:) = [];
+            p = linedata(:,1) == 0;
+            linedata(p,:) = [];
+            i = 0;
+            % Loc tia va tinh cong suat
+            % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút    ngu?n th? c?p (nút r? nhánh)
+            %logger.info('rut tia linedata va tinh lai cong suat truyen va cong suat ton that')
+            [ linedata, powerdata ] = ruttia(Udm,linedata,powerdata);
         end
     end
     
@@ -94,25 +95,26 @@ while linedatarong == 0
         linedatamultiloop = VongKep{i};
         nutlkn = nutlienketngoai(linedata,linedatamultiloop);
         if numel(nutlkn)<2
-           [nhanhcat] = ABCmulti(Udm,linedatamultiloop,linedata,powerdata);
-           cutlist = [cutlist,nhanhcat];
-           %Tinh cong suat
-           for j = 1:numel(nhanhcat)
-               m = nhanhcat(j) == linedata(:,1);
-               linedata(m,:) = [];
-           end
-           [ linedata,powerdata ] = ruttia(Udm,linedata,powerdata);
-           for j = 1:size(linedatamultiloop,1)
-               n=linedatamultiloop(j,1) == linedata(:,1);
-               linedata(n,1) = 0;
-           end
-           m=linedata(:,1) == 0;
-           linedata(m,:) = [];
-           VongKep(i) = []; 
-           i=0;
+            [nhanhcat] = ABCmulti(Udm,linedatamultiloop,linedata,powerdata);
+            cutlist = [cutlist,nhanhcat];
+            %Tinh cong suat
+            for j = 1:numel(nhanhcat)
+                m = nhanhcat(j) == linedata(:,1);
+                linedata(m,:) = [];
+            end
+            [ linedata,powerdata ] = ruttia(Udm,linedata,powerdata);
+            for j = 1:size(linedatamultiloop,1)
+                n=linedatamultiloop(j,1) == linedata(:,1);
+                linedata(n,1) = 0;
+            end
+            m=linedata(:,1) == 0;
+            linedata(m,:) = [];
+            VongKep(i) = [];
+            i=0;
         end
         % Tinh cong suat
-        % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút ngu?n th? c?p (nút r? nhánh) 
+        % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút ngu?n th? c?p (nút r? nhánh)
+        %logger.info('rut tia linedata va tinh lai cong suat truyen va cong suat ton that')
         [ linedata, powerdata] = ruttia(Udm,linedata,powerdata);
     end
     %Kiem tra lai so phan ti linedata

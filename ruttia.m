@@ -1,4 +1,4 @@
-function [linedata,powerdata]=ruttia(Udm,linedata,powerdata)
+function [linedata, powerdata] = ruttia(Udm,linedata,powerdata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
@@ -34,7 +34,7 @@ while true
          j=nutrun==1;
          nutrun(find(j)+1:numel(nutrun))=[];
          for vitriNutRun=1:length(nutrun)-1
-             [~,powerdata]=Slossab(nutrun(vitriNutRun),nutrun(vitriNutRun+1),...
+             [~,powerdata] = Slossab(nutrun(vitriNutRun),nutrun(vitriNutRun+1),...
              Udm,powerdata,linedata);
              %%Tim nhanh
              for vitriLineData=1:size(linedata,1)
@@ -50,7 +50,7 @@ while true
          end
      end
      if isempty(linedata)
-        logger.info('rut trich xong du lieu (tinh xong tat ca linedata)');
+        logger.info('rut tia xong (tinh xong tat ca linedata)');
         break
      end
 end 

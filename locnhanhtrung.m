@@ -1,4 +1,10 @@
 function linedata=locnhanhtrung(linedata)
+global logLevel
+import logging.*
+logger = Logger.getLogger('Chuongtrinhchinh');
+logger.setLevel(logLevel);
+logger.info('(Start)')
+
 G=graph(adj(linedata));
 data=G.Edges;
 data=data.EndNodes;
@@ -19,4 +25,6 @@ for i=1:size(linedata,1)
 end
 m=linedata(:,1)==0;
 linedata(m,:)=[];
+
+logger.info('(Success)')
 end

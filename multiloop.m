@@ -1,4 +1,10 @@
 function multiloop=multiloop(linedata)
+global logLevel
+import logging.*
+logger = Logger.getLogger('Chuongtrinhchinh');
+logger.setLevel(logLevel);
+logger.info('(Start)')
+
 % Tim cac nhanh thuoc cac vong doc lap
 multiloop=[];
 %Input linedata
@@ -161,6 +167,8 @@ end
 %Ghi lai vong lienhop
 multiloop=vonglienhop;
 end
+
+logger.info('(Success)')
 end
 
 function adj=adj(linedata)

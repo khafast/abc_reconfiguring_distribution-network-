@@ -1,4 +1,10 @@
 function [linedata,powerdata] = thugon(linedata,powerdata)
+global logLevel
+import logging.*
+logger = Logger.getLogger('Chuongtrinhchinh');
+logger.setLevel(logLevel);
+logger.info('(Start)')
+
 %Liet ke cac nut
 nut=[];
 for i=1:size(linedata,1)
@@ -41,5 +47,7 @@ for i=1:size(newlinedata,1)
     newlinedata(i,3)=bang(n,2);
 end
 linedata=newlinedata;
+
+logger.info('(Success)')
 end
 
