@@ -28,6 +28,8 @@ linedata(n,:)=[];
 cutlist=[cutlist,nhanhlienketnguon];
 %----------Loc cac nhanh tia khoi luoi-------------------------------------
 logger.info('Loc cac nhanh tia ra khoi luoi (Start)')
+baoCaoTienDo(linedata, powerdata);
+
 [linedata, powerdata] = ruttia(Udm, linedata, powerdata);
 linedata = locnhanhtrung(linedata);
 

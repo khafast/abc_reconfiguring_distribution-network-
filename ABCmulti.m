@@ -1,4 +1,4 @@
-function [nhanhcat,Ploss,Bestpower]=ABCmulti(Udm,linedatamultiloop,linedata,powerdata)
+function [nhanhcat,Ploss,Bestpower]=ABCmulti(Udm, linedatamultiloop, linedata, powerdata)
 global logLevel
 
 global CostFunction;
@@ -13,6 +13,8 @@ global linedatacatnguon;
 global danhsachnut;
 global danhSachNutNguon;
 global nhanhthay;
+
+global logger;
 
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
@@ -45,6 +47,7 @@ nVar = size(matrancat, 2) - 1;
 
 % So vong lap toi da
 soVongLapToiDa = round(heSoVongLap * nVar^2);
+
 % Tim so nhanh nhieu nhat
 D = zeros(1,size(matrancat, 2)-1);
 maxnhanh = 0;
@@ -95,7 +98,7 @@ for it = 1:soVongLapToiDa
     
     bayOng = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBoQua);
     
-    % Update Best Solution Ever Found
+    % Cap nhat giai phap tot nhat ma bay ong tim duoc
     for i = 1:kickThuocBayOng
         if real(bayOng(i).Cost.ploss) <= real(BestSol.Cost.ploss)
             BestSol = bayOng(i);
@@ -202,6 +205,10 @@ function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
     global danhSachNutNguon;
     global nhanhthay;
     
+    global logger;
+    
+    logger.info('trienKhaiGiaiDoanOngLamViec');
+    
     for i=1:kickThuocBayOng
         A=0;
         danhSachNhanh=[];
@@ -298,8 +305,12 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
     global danhSachNutNguon;
     global nhanhthay;
     
+    global logger;
+    
+    logger.info('trienKhaiGiaiDoanOngGiamSat');
+    
     for vitri = 1:kichThuocBayOngGiamSat
-        vitriOngGiamSat = RouletteWheelSelection(P);
+        vitriOng = RouletteWheelSelection(P);
         A = 0;
         danhSachNhanh=[];
         while A==0
@@ -365,16 +376,17 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
         newbee.Cost.ploss = ploss;
         newbee.Cost.power = power;
         
-        % Comparision
-        if real(newbee.Cost.ploss) <= real(bayOng(vitriOngGiamSat).Cost.ploss)
-            bayOng(vitriOngGiamSat) = newbee;
+        % So sanh ket qua giua ong lam viec va ong giam sat
+        if real(newbee.Cost.ploss) <= real(bayOng(vitriOng).Cost.ploss)
+            bayOng(vitriOng) = newbee;
         else
-            boDemSoLanBoQua(vitriOngGiamSat) = boDemSoLanBoQua(vitriOngGiamSat)+1;
+            boDemSoLanBoQua(vitriOng) = boDemSoLanBoQua(vitriOng)+1;
         end
     end
 end
 
 function i = RouletteWheelSelection(P)
+    
     r=rand;
     C=cumsum(P);
     i=find(r<=C,1,'first');
@@ -385,7 +397,7 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
     %global CostFunction;
     %global bayOng;
     global kickThuocBayOng;
-    global boDemSoLanBoQua;
+    global boDemSoLanBoQua; % duoc tinh toan trong 2 giai doan truoc (ong lam viec va ong trinh sat)
     global matrancat;
     global nVar;
     global p;
@@ -395,26 +407,32 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
     global danhSachNutNguon;
     global nhanhthay;
     
+    global logger;
+    
+    logger.info('trienKhaiGiaiDoanOngTrinhSat');
+    
     for i=1:kickThuocBayOng
         if boDemSoLanBoQua(i) >= gioiHanBoQua
-            A=0;
-            danhSachNhanh=[];
-            while A == 0
-                danhSachCat=matrancat;
+            danhSachNutThuConPhanTu = true;
+            danhSachNhanhCatConLai = [];
+            while danhSachNutThuConPhanTu == true
+                danhSachCat = matrancat;
                 for j = 1:nVar
-                    n = danhSachCat(:,j+1)==1;
-                    nhanhcat = danhSachCat(n,1);
-                    k = randperm(length(nhanhcat),1);
-                    nhanh = nhanhcat(k);
-                    danhSachNhanh(j) = nhanh;
-                    m = nhanh == danhSachCat(:,1);
+                    n = danhSachCat(:, j+1)==1;
+                    danhSachNhanhCat = danhSachCat(n,1);
+                    
+                    k = randperm(length(danhSachNhanhCat),1);
+                    nhanhCat = danhSachNhanhCat(k);
+                    danhSachNhanhCatConLai(j) = nhanhCat;
+                    
+                    m = nhanhCat == danhSachCat(:,1);
                     danhSachCat(m,:) = [];
                 end
                 
                 %xoa nhanh tren linedata
                 linedatacat = linedatacatnguon;
-                for k = 1:length(danhSachNhanh)
-                    p = danhSachNhanh(k)==linedatacat(:,1);
+                for k = 1:length(danhSachNhanhCatConLai)
+                    p = danhSachNhanhCatConLai(k) == linedatacat(:,1);
                     linedatacat(p,:)=[];
                 end
                 
@@ -428,24 +446,24 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
                 
                 %Kiem tra dieu kien ton tai nut co lap
                 if isempty(danhSachNutThu)
-                    A=1;
+                    danhSachNutThuConPhanTu = false;
                 end
             end
             %chuyen doi danhsach ve nhanh thuc
             nhanhcatthuc = [];
-            for r = 1:length(danhSachNhanh)
-                if isempty(nhanhthay{danhSachNhanh(r)})
-                    nhanhcatthuc(length(nhanhcatthuc)+1)=danhSachNhanh(r);
+            for vitriNhanh = 1:length(danhSachNhanhCatConLai)
+                if isempty(nhanhthay{danhSachNhanhCatConLai(vitriNhanh)})
+                    nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanhCatConLai(vitriNhanh);
                 else
-                    a = randperm(length(nhanhthay{danhSachNhanh(r)}),1);
-                    nhanhthay1=nhanhthay{danhSachNhanh(r)}(a);
-                    nhanhcatthuc(length(nhanhcatthuc)+1)=nhanhthay1;
+                    a = randperm(length(nhanhthay{danhSachNhanhCatConLai(vitriNhanh)}),1);
+                    nhanhthay1 = nhanhthay{danhSachNhanhCatConLai(vitriNhanh)}(a);
+                    nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
                 end
             end
-            bayOng(i).Position=nhanhcatthuc;
-            [ploss,power]=CostFunction(bayOng(i).Position);
-            bayOng(i).Cost.ploss=ploss;
-            bayOng(i).Cost.power=power;
+            bayOng(i).Position = nhanhcatthuc;
+            [ploss, power] = CostFunction(bayOng(i).Position);
+            bayOng(i).Cost.ploss = ploss;
+            bayOng(i).Cost.power = power;
             boDemSoLanBoQua(i)=0;
         end
     end
