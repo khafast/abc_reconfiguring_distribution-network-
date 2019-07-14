@@ -89,11 +89,11 @@ boDemSoLanBoQua = zeros(kickThuocBayOng, 1);
 
 %% ABC Main Loop
 for it = 1:soVongLapToiDa
-    bangDanhGiaKhaNangThanhCong = trienKhaiGiaiDoanOngLamViec();
+    bangDanhGiaKhaNangThanhCong = trienKhaiGiaiDoanOngLamViec(CostFunction);
     
-    bayOng = trienKhaiGiaiDoanOngGiamSat(bangDanhGiaKhaNangThanhCong, bayOng, kichThuocBayOngGiamSat);
+    bayOng = trienKhaiGiaiDoanOngGiamSat(bangDanhGiaKhaNangThanhCong, CostFunction, bayOng, kichThuocBayOngGiamSat);
     
-    bayOng = trienKhaiGiaiDoanOngTrinhSat(bayOng, gioiHanBoQua);
+    bayOng = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBoQua);
     
     % Update Best Solution Ever Found
     for i = 1:kickThuocBayOng
@@ -110,9 +110,9 @@ for it = 1:soVongLapToiDa
         
         %Xuat trang thai chay
         logger.fine(['Chay vong lap tren vong kep lan  ' num2str(it)]);
-        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';'])
+        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) '; (giai phap duoc chon)'])
     else
-        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';'])
+        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(BestSol.Position) ';'])
     end
     
 end
@@ -188,8 +188,8 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
 end
 
 %% Giai doan Ong lam viec (Employed Bees Phase)
-function P = trienKhaiGiaiDoanOngLamViec()
-    global CostFunction;
+function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
+    %global CostFunction;
     global bayOng;
     global kickThuocBayOng;
     global boDemSoLanBoQua;
@@ -260,7 +260,7 @@ function P = trienKhaiGiaiDoanOngLamViec()
             end
         end
         newbee.Position=nhanhcatthuc;
-        [ploss,power]=CostFunction(newbee.Position);
+        [ploss, power] = CostFunction(newbee.Position);
         newbee.Cost.ploss=ploss;
         newbee.Cost.power=power;
         % Comparision
@@ -284,8 +284,8 @@ function P = trienKhaiGiaiDoanOngLamViec()
 end
 
 %% Giai doan Ong giam sat (Onlooker Bees Phase )
-function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, bayOng, kichThuocBayOngGiamSat)
-    global CostFunction;
+function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThuocBayOngGiamSat)
+    %global CostFunction;
     %global bayOng;
     %global kickThuocBayOng;
     global boDemSoLanBoQua;
@@ -381,8 +381,8 @@ function i = RouletteWheelSelection(P)
 end
 
 %% Giai doan Ong Trinh Sat (Scout Bee Phase)
-function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(bayOng, gioiHanBoQua)
-    global CostFunction;
+function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
+    %global CostFunction;
     %global bayOng;
     global kickThuocBayOng;
     global boDemSoLanBoQua;

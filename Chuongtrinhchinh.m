@@ -34,7 +34,7 @@ logManager = LogManager.getLogManager();
 % add a file handler to the root logger
 fileHandler = FileHandler('./_bao_cao_toan_bo_chuong_trinh.log');
 fileHandler.setLevel( Level.ALL );
-rootLogger = logManager.getLogger('Chuongtrinhchinh');
+rootLogger = logManager.getLogger('');
 rootLogger.addHandler( fileHandler );
 logger = Logger.getLogger('Chuongtrinhchinh');
 logger.setLevel(logLevel);
@@ -146,6 +146,10 @@ G = graph(adj(lineDataAfterRun));
 figure('Name', 'Luoi dien sau khi tinh toan'); plot(G);
 
 logger.info('(SUCCESS)')
+
+logManager.resetAll();
+fclose all;
+%logManager.printLoggers();
 
 function chu = chuyenSoThanhChu(so)
     doPhanGiaiSoThapPhan = 3;

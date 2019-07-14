@@ -155,9 +155,9 @@ for it=1:MaxIt
         Bestpower=BestSol.Cost.power;
         nhanhcat=BestSol.Position;
         logger.fine(['vong lap vong doc lap ' num2str(it) ]);
-        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(nhanhcat)]);
+        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(nhanhcat) '; (giai phap duoc chon)']);
     else
-        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(nhanhcat)]);
+        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanh cat = ' num2str(BestSol.Position) ';']);
     end
 end
 logger.info('(Success)')
