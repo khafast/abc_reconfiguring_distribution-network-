@@ -1,4 +1,4 @@
-function [cutlist,Ploss,DeltaP,linedata,powerdata]=ABCmain(Udm,linedata,powerdata)
+function [cutlist,Ploss,DeltaP,linedata,powerdata] = ABCmain(Udm, linedata, powerdata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
@@ -50,6 +50,8 @@ VongKep = multiloop(linedata);
 
 %chay vong lap
 linedatarong = isempty(linedata);
+
+logger.info(['so luong linedata can phan tich: ' num2str(numel(linedata))])
 while linedatarong == 0
     
     %Quet cac vong doc lap
@@ -57,18 +59,18 @@ while linedatarong == 0
     while numel(VongDL) > 0 %dieu kien quet vong doc lap
         %Quet cac vong doc lap
         i = i+1;
-        linedataindeloop = [];
+        linedataVongLapDocLap = [];
         %Tim so nut co lien ket ngoai
         for j = 1:size(VongDL,2)
             n = VongDL(i, j) == linedata(:,1);
-            linedataindeloop = [linedataindeloop;linedata(n,:)];
+            linedataVongLapDocLap = [linedataVongLapDocLap; linedata(n,:)];
         end
-        nutlkn=nutlienketngoai(linedata,linedataindeloop);
+        danhSachNutLienKetNgoai = nutlienketngoai(linedata, linedataVongLapDocLap);
         %Neu chi co 1 nut co lien ket ngoai thi do la nut nguon
         % va cho chay ABC v cap nhat linedata powerdata
-        if numel(nutlkn) < 2
+        if numel(danhSachNutLienKetNgoai) < 2
             [nhanhcat] = ABCin(VongDL(i,:), Udm, linedata, powerdata);
-            cutlist = [cutlist,nhanhcat];
+            cutlist = [cutlist, nhanhcat];
             %Loc tia va tinh cong suat
             q = nhanhcat == linedata(:,1);
             linedata(q,:) = [];
@@ -84,7 +86,9 @@ while linedatarong == 0
             % Loc tia va tinh cong suat
             % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút    ngu?n th? c?p (nút r? nhánh)
             %logger.info('rut tia linedata va tinh lai cong suat truyen va cong suat ton that')
-            [ linedata, powerdata ] = ruttia(Udm,linedata,powerdata);
+            [ linedata, powerdata ] = ruttia(Udm, linedata, powerdata);
+            
+            baoCaoTienDo(linedata, powerdata);
         end
     end
     
@@ -92,30 +96,33 @@ while linedatarong == 0
     i = 0;
     while numel(VongKep) > 0
         i = i+1;
-        linedatamultiloop = VongKep{i};
-        nutlkn = nutlienketngoai(linedata,linedatamultiloop);
-        if numel(nutlkn)<2
-            [nhanhcat] = ABCmulti(Udm,linedatamultiloop,linedata,powerdata);
+        linedataVongKep = VongKep{i};
+        danhSachNutLienKetNgoai = nutlienketngoai(linedata, linedataVongKep);
+        if numel(danhSachNutLienKetNgoai) < 2
+            [nhanhcat] = ABCmulti(Udm, linedataVongKep, linedata,powerdata);
             cutlist = [cutlist,nhanhcat];
             %Tinh cong suat
             for j = 1:numel(nhanhcat)
                 m = nhanhcat(j) == linedata(:,1);
                 linedata(m,:) = [];
             end
-            [ linedata,powerdata ] = ruttia(Udm,linedata,powerdata);
-            for j = 1:size(linedatamultiloop,1)
-                n=linedatamultiloop(j,1) == linedata(:,1);
+            
+            [ linedata, powerdata ] = ruttia(Udm, linedata, powerdata);
+            for j = 1:size(linedataVongKep, 1)
+                n = linedataVongKep(j,1) == linedata(:,1);
                 linedata(n,1) = 0;
             end
-            m=linedata(:,1) == 0;
+            m = linedata(:,1) == 0;
             linedata(m,:) = [];
             VongKep(i) = [];
-            i=0;
+            i = 0;
         end
         % Tinh cong suat
         % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút ngu?n th? c?p (nút r? nhánh)
         %logger.info('rut tia linedata va tinh lai cong suat truyen va cong suat ton that')
-        [ linedata, powerdata] = ruttia(Udm,linedata,powerdata);
+        [linedata, powerdata] = ruttia(Udm, linedata, powerdata);
+        
+        baoCaoTienDo(linedata, powerdata);
     end
     %Kiem tra lai so phan ti linedata
     linedatarong = isempty(linedata);

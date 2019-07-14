@@ -1,4 +1,4 @@
-function [linedata, powerdata]=xoanutroi(linedata,powerdata)
+function [linedata, powerdata] = xoanutroi(linedata, powerdata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
@@ -16,13 +16,17 @@ for j=1:size(powerdata,1)
     end
 end
 
-for i=1:length(nutroi)
-    n=linedata(:,2)==nutroi(i);
+for i = 1:length(nutroi)
+    n = linedata(:,2)==nutroi(i);
     linedata(n,:)=[];
-    m=linedata(:,3)==nutroi(i);
+    
+    m = linedata(:,3)==nutroi(i);
     linedata(m,:)=[];
-    k=powerdata(:,1)==nutroi(i);
+    
+    k = powerdata(:,1)==nutroi(i);
     powerdata(k,:)=[];
+    
+    logger.info(['xoa nut roi (nut doc lap) #' num2str(nutroi(i))])
 end
 
 logger.finer('(Success)')

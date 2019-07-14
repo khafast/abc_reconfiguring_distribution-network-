@@ -48,6 +48,7 @@ while true
              logger.info(['loai tru nhanh hinh-tia co linedata: ' num2str(lineDataBiLoaiBo)]);
              linedata(danhSachNutNguon,:)=[];
          end
+         baoCaoTienDo(linedata, powerdata);
      end
      if isempty(linedata)
         logger.info('rut tia xong (tinh xong tat ca linedata)');
