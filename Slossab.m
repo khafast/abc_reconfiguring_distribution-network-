@@ -1,4 +1,4 @@
-function [Sloss,power] = Slossab(a,b,Udm,powerdata,linedata)
+function [Sloss,power] = Slossab(a, b, Udm, powerdata, linedata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');

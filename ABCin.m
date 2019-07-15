@@ -1,4 +1,4 @@
-function [nhanhcat,Ploss,Bestpower]=ABCin(dscat,Udm,linedata,powerdata)
+function [nhanhcat,Ploss,Bestpower]=ABCin(dscat, Udm, linedata, powerdata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
@@ -10,7 +10,7 @@ h=0.2;
 m=dscat==0;
 dscat(m)=[];
 format short G;
-CostFunction=@(x) Sloss(x,Udm,powerdata,dscat,linedata);
+CostFunction=@(x) Sloss(x, Udm, powerdata, dscat, linedata);
 
 k=1;
 % Decision Variables Lower Bound  
@@ -162,8 +162,6 @@ for it=1:MaxIt
 end
 logger.info('(Success)')
 end
-
-
 
 function i=RouletteWheelSelection(P)
 

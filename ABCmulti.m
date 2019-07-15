@@ -1,4 +1,4 @@
-function [nhanhcat,Ploss,Bestpower]=ABCmulti(Udm, linedatamultiloop, linedata, powerdata)
+function [nhanhcat, Ploss, Bestpower]=ABCmulti(Udm, linedatamultiloop, linedata, powerdata)
 global logLevel
 
 global CostFunction;
@@ -23,7 +23,7 @@ logger.info('(Start)')
 
 format short G;
 %he so vong lap
-heSoVongLap = 2;
+heSoVongLap = 1;
 
 %Pham vi tim ngau nhien
 phamViTimNgauNhien = 4;
@@ -140,7 +140,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
     for i = 1:kickThuocBayOng
         A = 0;
         danhSachNhanh = [];
-        while A==0
+        while A == 0
             danhSachCat = matrancat;
             for j = 1:nVar
                 n = danhSachCat(:,j+1) == 1;
@@ -149,13 +149,13 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
                 nhanh = nhanhcat(vitri);
                 danhSachNhanh(j) = nhanh;
                 m = nhanh == danhSachCat(:,1);
-                danhSachCat(m,:)=[];
+                danhSachCat(m, :)=[];
             end
             %xoa nhanh tren linedata
             linedatacat=linedatacatnguon;
             for vitri = 1:length(danhSachNhanh)
                 p = danhSachNhanh(vitri) == linedatacat(:,1);
-                linedatacat(p,:)=[];
+                linedatacat(p, :)=[];
             end
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
@@ -165,7 +165,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
                 danhSachNutThu(p) = [];
             end
             if isempty(danhSachNutThu)
-                A=1;
+                A = 1;
             end
         end
         %chuyen doi danh sach ve nhanh thuc
@@ -173,17 +173,17 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
         nhanhthay1 = [];
         for r = 1:length(danhSachNhanh)
             if isempty(nhanhthay{danhSachNhanh(r)})
-                nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanh(r);
+                nhanhcatthuc(length(nhanhcatthuc) + 1) = danhSachNhanh(r);
             else
                 a = randperm(length(nhanhthay{danhSachNhanh(r)}),1);
                 nhanhthay1 = nhanhthay{danhSachNhanh(r)}(a);
-                nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
+                nhanhcatthuc(length(nhanhcatthuc) + 1) = nhanhthay1;
             end
         end
         bayOng(i).Position = nhanhcatthuc;
         [ploss, power] = CostFunction(bayOng(i).Position);
-        bayOng(i).Cost.ploss=ploss;
-        bayOng(i).Cost.power=power;
+        bayOng(i).Cost.ploss = ploss;
+        bayOng(i).Cost.power = power;
         if real(bayOng(i).Cost.ploss) <= real(BestSol.Cost.ploss)
             BestSol=bayOng(i);
         end
@@ -207,84 +207,84 @@ function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
     
     global logger;
     
-    logger.info('trienKhaiGiaiDoanOngLamViec');
+    logger.info('');
     
-    for i=1:kickThuocBayOng
-        A=0;
-        danhSachNhanh=[];
-        while A==0
-            danhSachCat=matrancat;
-            for j=1:nVar
+    for i = 1:kickThuocBayOng
+        A = 0;
+        danhSachNhanh = [];
+        while A == 0
+            danhSachCat = matrancat;
+            for j = 1:nVar
                 vitriTrongDanhSach = danhSachCat(:,j+1)==1;
                 nhanhcat = danhSachCat(vitriTrongDanhSach, 1);
                 vitri = find(p);
-                E=1;
-                while E==1
-                    if vitri==1
-                        Z=0:phamViTimNgauNhien;
-                    elseif vitri==numel(nhanhcat)
-                        Z=-phamViTimNgauNhien:0;
+                E = 1;
+                while E == 1
+                    if vitri == 1
+                        Z = 0:phamViTimNgauNhien;
+                    elseif vitri == numel(nhanhcat)
+                        Z = -phamViTimNgauNhien:0;
                     else
-                        Z=-phamViTimNgauNhien:phamViTimNgauNhien;
+                        Z = -phamViTimNgauNhien:phamViTimNgauNhien;
                     end
-                    phi=Z(randperm(numel(Z),1));
-                    if (vitri+phi)>=1 && ...
-                            (vitri+phi<=length(nhanhcat))
+                    phi = Z(randperm(numel(Z), 1));
+                    if (vitri + phi) >= 1 && ...
+                            (vitri + phi <= length(nhanhcat))
                         E=0;
                     end
                 end
-                danhSachNhanh(j)=nhanhcat(vitri+phi);
-                vitriTrongDanhSach=danhSachNhanh(j)==danhSachCat(:,1);
-                danhSachCat(vitriTrongDanhSach,:)=[];
+                danhSachNhanh(j) = nhanhcat(vitri + phi);
+                vitriTrongDanhSach=danhSachNhanh(j) == danhSachCat(:,1);
+                danhSachCat(vitriTrongDanhSach,:) = [];
             end
             %xoa nhanh tren linedata
             linedatacat = linedatacatnguon;
-            for k=1:length(danhSachNhanh)
-                p=danhSachNhanh(k)==linedatacat(:,1);
-                linedatacat(p,:)=[];
+            for k = 1:length(danhSachNhanh)
+                p = danhSachNhanh(k) == linedatacat(:,1);
+                linedatacat(p,:) = [];
             end
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
             list = dfsearch(graph(adj(linedatacat)),danhSachNutNguon);
             for k = 1:length(list)
                 p = list(k) == danhSachNutThu;
-                danhSachNutThu(p)=[];
+                danhSachNutThu(p) = [];
             end
             if isempty(danhSachNutThu)
-                A=1;
+                A = 1;
             end
         end
         %chuyen doi danhsach ve nhanh thuc
-        nhanhcatthuc=[];
-        nhanhthay1=[];
-        for r=1:length(danhSachNhanh)
+        nhanhcatthuc = [];
+        nhanhthay1 = [];
+        for r = 1:length(danhSachNhanh)
             if isempty(nhanhthay{danhSachNhanh(r)})
-                nhanhcatthuc(length(nhanhcatthuc)+1)=danhSachNhanh(r);
+                nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanh(r);
             else
-                a=randperm(length(nhanhthay{danhSachNhanh(r)}),1);
-                nhanhthay1=nhanhthay{danhSachNhanh(r)}(a);
-                nhanhcatthuc(length(nhanhcatthuc)+1)=nhanhthay1;
+                a=randperm(length(nhanhthay{danhSachNhanh(r)}), 1);
+                nhanhthay1 = nhanhthay{danhSachNhanh(r)}(a);
+                nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
             end
         end
-        newbee.Position=nhanhcatthuc;
+        newbee.Position = nhanhcatthuc;
         [ploss, power] = CostFunction(newbee.Position);
-        newbee.Cost.ploss=ploss;
-        newbee.Cost.power=power;
+        newbee.Cost.ploss = ploss;
+        newbee.Cost.power = power;
         % Comparision
-        if real(newbee.Cost.ploss)<=real(bayOng(i).Cost.ploss)
-            bayOng(i)=newbee;
+        if real(newbee.Cost.ploss) <= real(bayOng(i).Cost.ploss)
+            bayOng(i) = newbee;
         else
-            boDemSoLanBoQua(i)=boDemSoLanBoQua(i)+1;
+            boDemSoLanBoQua(i) = boDemSoLanBoQua(i) + 1;
         end
     end
     
     % Calculate Fitness Values and Selection Probabilities
     F = zeros(kickThuocBayOng,1);
-    for i=1:kickThuocBayOng
-        if bayOng(i).Cost.ploss>=0
-            F(i)=1/(1+real(bayOng(i).Cost.ploss));
+    for i = 1:kickThuocBayOng
+        if bayOng(i).Cost.ploss >= 0
+            F(i) = 1 / (1+real(bayOng(i).Cost.ploss));
         else
-            F(i)=1+abs(real(bayOng(i).Cost.ploss));
+            F(i) = 1 + abs(real(bayOng(i).Cost.ploss));
         end
     end
     P = F/sum(F);
@@ -307,7 +307,7 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
     
     global logger;
     
-    logger.info('trienKhaiGiaiDoanOngGiamSat');
+    logger.info('');
     
     for vitri = 1:kichThuocBayOngGiamSat
         vitriOng = RouletteWheelSelection(P);
@@ -329,32 +329,32 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
                         Z = -phamViTimNgauNhien:phamViTimNgauNhien;
                     end
                     phi = Z(randperm(numel(Z),1));
-                    if (vitri+phi)>=1 && ...
-                            (vitri+phi<=length(nhanhcat))
-                        E=0;
+                    if (vitri + phi) >= 1 && ...
+                            (vitri + phi <= length(nhanhcat))
+                        E = 0;
                     end
                 end
                 danhSachNhanh(j) = nhanhcat(vitri+phi);
-                vitri = danhSachNhanh(j)==danhSachCat(:,1);
+                vitri = danhSachNhanh(j) == danhSachCat(:,1);
                 danhSachCat(vitri,:) = [];
             end
             
             %xoa nhanh tren linedata
             linedatacat = linedatacatnguon;
             for k = 1:length(danhSachNhanh)
-                p = danhSachNhanh(k)==linedatacat(:,1);
+                p = danhSachNhanh(k) == linedatacat(:,1);
                 linedatacat(p,:) = [];
             end
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
             list = dfsearch(graph(adj(linedatacat)),danhSachNutNguon);
             for k = 1:length(list)
-                p = list(k)==danhSachNutThu;
+                p = list(k) == danhSachNutThu;
                 danhSachNutThu(p)=[];
             end
             %Kiem tra lai dieu kien danh sach nhanh cat la phu hop
             if isempty(danhSachNutThu)
-                A=1;
+                A = 1;
             end
         end
         
@@ -363,11 +363,11 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
         nhanhthay1 = [];
         for r = 1:length(danhSachNhanh)
             if isempty(nhanhthay{danhSachNhanh(r)})
-                nhanhcatthuc(length(nhanhcatthuc)+1)=danhSachNhanh(r);
+                nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanh(r);
             else
                 a=randperm(length(nhanhthay{danhSachNhanh(r)}),1);
-                nhanhthay1=nhanhthay{danhSachNhanh(r)}(a);
-                nhanhcatthuc(length(nhanhcatthuc)+1)=nhanhthay1;
+                nhanhthay1 = nhanhthay{danhSachNhanh(r)}(a);
+                nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
             end
         end
         newbee.Position = nhanhcatthuc;
@@ -387,9 +387,9 @@ end
 
 function i = RouletteWheelSelection(P)
     
-    r=rand;
-    C=cumsum(P);
-    i=find(r<=C,1,'first');
+    r = rand;
+    C = cumsum(P);
+    i = find(r <= C,1,'first');
 end
 
 %% Giai doan Ong Trinh Sat (Scout Bee Phase)
@@ -409,7 +409,7 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
     
     global logger;
     
-    logger.info('trienKhaiGiaiDoanOngTrinhSat');
+    logger.info('');
     
     for i=1:kickThuocBayOng
         if boDemSoLanBoQua(i) >= gioiHanBoQua
@@ -418,7 +418,7 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
             while danhSachNutThuConPhanTu == true
                 danhSachCat = matrancat;
                 for j = 1:nVar
-                    n = danhSachCat(:, j+1)==1;
+                    n = danhSachCat(:, j+1) == 1;
                     danhSachNhanhCat = danhSachCat(n,1);
                     
                     k = randperm(length(danhSachNhanhCat),1);
