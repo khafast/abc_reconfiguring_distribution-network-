@@ -51,8 +51,7 @@ nhanhcat=[];
 
 % Create Initial Population
 for i=1:nPop
-    p=randperm(VarMax,1);
-    pop(i).Position=dscat(p);
+    pop(i).Position = layNgauNhienMotNut(dscat);
     [pop(i).Cost.ploss,pop(i).Cost.power]=CostFunction(pop(i).Position);
     if real(pop(i).Cost.ploss)<=real(BestSol.Cost.ploss)
        BestSol=pop(i);
@@ -73,14 +72,14 @@ for it=1:MaxIt
         E=1;
         while E==1
               K=-k:k;
-              phi=K(randperm(numel(K),1));
+              phi = layNgauNhienMotNut(K);
         
               % New Bee Position
-              if i+phi>=VarMin && i+phi<=VarMax
-                 E=0;
+              if i + phi >= VarMin && i + phi <= VarMax
+                 E = 0;
               end
         end
-        newbee.Position=dscat(i+phi);
+        newbee.Position = dscat(i + phi);
         
         % Evaluation
         [newbee.Cost.ploss,newbee.Cost.power]=CostFunction(newbee.Position);
@@ -106,21 +105,21 @@ for it=1:MaxIt
     P=F/sum(F);
     
     % Onlooker Bees
-    for m=1:nOnlooker
-        i=randperm(numel(P),1);
-        E=1;
+    for m = 1:nOnlooker
+        i = randperm(numel(P),1);
+        E = 1;
         while E==1
               % Define Acceleration Coeff.
-              K=-k:k;
-              phi=K(randperm(numel(K),1));
+              K = -k:k;
+              phi = layNgauNhienMotNut(K);
         
               % New Bee Position
              
-              if i+phi>=VarMin && i+phi<=VarMax
+              if i+phi >= VarMin && i+phi <= VarMax
                  E=0;
               end
         end
-        newbee.Position=dscat(i+phi);
+        newbee.Position = dscat(i+phi);
         % Evaluation
         [newbee.Cost.ploss,newbee.Cost.power]=CostFunction(newbee.Position);
 
@@ -136,8 +135,7 @@ for it=1:MaxIt
     % Scout Bees
     for i=1:nPop
         if C(i)>=L
-           p=randperm(VarMax,1);
-           pop(i).Position=dscat(p);
+           pop(i).Position = layNgauNhienMotNut(dscat);
            [pop(i).Cost.ploss,pop(i).Cost.power]=CostFunction(pop(i).Position);
 
         end

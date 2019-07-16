@@ -145,8 +145,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
             for j = 1:nVar
                 n = danhSachCat(:,j+1) == 1;
                 nhanhcat = danhSachCat(n,1);
-                vitri = randperm(length(nhanhcat),1);
-                nhanh = nhanhcat(vitri);
+                nhanh = layNgauNhienMotNut(nhanhcat);
                 danhSachNhanh(j) = nhanh;
                 m = nhanh == danhSachCat(:,1);
                 danhSachCat(m, :)=[];
@@ -175,8 +174,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
             if isempty(nhanhthay{danhSachNhanh(r)})
                 nhanhcatthuc(length(nhanhcatthuc) + 1) = danhSachNhanh(r);
             else
-                a = randperm(length(nhanhthay{danhSachNhanh(r)}),1);
-                nhanhthay1 = nhanhthay{danhSachNhanh(r)}(a);
+                nhanhthay1 = layNgauNhienMotNut(nhanhthay{danhSachNhanh(r)});
                 nhanhcatthuc(length(nhanhcatthuc) + 1) = nhanhthay1;
             end
         end
@@ -227,7 +225,7 @@ function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
                     else
                         Z = -phamViTimNgauNhien:phamViTimNgauNhien;
                     end
-                    phi = Z(randperm(numel(Z), 1));
+                    phi = layNgauNhienMotNut(Z);
                     if (vitri + phi) >= 1 && ...
                             (vitri + phi <= length(nhanhcat))
                         E=0;
@@ -261,8 +259,7 @@ function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
             if isempty(nhanhthay{danhSachNhanh(r)})
                 nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanh(r);
             else
-                a=randperm(length(nhanhthay{danhSachNhanh(r)}), 1);
-                nhanhthay1 = nhanhthay{danhSachNhanh(r)}(a);
+                nhanhthay1 = layNgauNhienMotNut(nhanhthay{danhSachNhanh(r)});
                 nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
             end
         end
@@ -328,7 +325,7 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
                     else
                         Z = -phamViTimNgauNhien:phamViTimNgauNhien;
                     end
-                    phi = Z(randperm(numel(Z),1));
+                    phi = layNgauNhienMotNut(Z);
                     if (vitri + phi) >= 1 && ...
                             (vitri + phi <= length(nhanhcat))
                         E = 0;
@@ -365,8 +362,7 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
             if isempty(nhanhthay{danhSachNhanh(r)})
                 nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanh(r);
             else
-                a=randperm(length(nhanhthay{danhSachNhanh(r)}),1);
-                nhanhthay1 = nhanhthay{danhSachNhanh(r)}(a);
+                nhanhthay1 = layNgauNhienMotNut(nhanhthay{danhSachNhanh(r)});
                 nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
             end
         end
@@ -421,8 +417,7 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
                     n = danhSachCat(:, j+1) == 1;
                     danhSachNhanhCat = danhSachCat(n,1);
                     
-                    k = randperm(length(danhSachNhanhCat),1);
-                    nhanhCat = danhSachNhanhCat(k);
+                    nhanhCat = layNgauNhienMotNut(danhSachNhanhCat);
                     danhSachNhanhCatConLai(j) = nhanhCat;
                     
                     m = nhanhCat == danhSachCat(:,1);
@@ -455,8 +450,7 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
                 if isempty(nhanhthay{danhSachNhanhCatConLai(vitriNhanh)})
                     nhanhcatthuc(length(nhanhcatthuc)+1) = danhSachNhanhCatConLai(vitriNhanh);
                 else
-                    a = randperm(length(nhanhthay{danhSachNhanhCatConLai(vitriNhanh)}),1);
-                    nhanhthay1 = nhanhthay{danhSachNhanhCatConLai(vitriNhanh)}(a);
+                    nhanhthay1 = layNgauNhienMotNut(nhanhthay{danhSachNhanhCatConLai(vitriNhanh)});
                     nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
                 end
             end

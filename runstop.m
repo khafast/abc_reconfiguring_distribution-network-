@@ -29,10 +29,10 @@ while A == 1
     end
     
     if isempty(nut2) == 0
-        nut = nut2(randperm(length(nut2), 1));
+        nut = layNgauNhienMotNut(nut2);
         danhSachNut(length(danhSachNut) + 1) = nut;
     else
-        nut = nutke(randperm(length(nutke), 1));
+        nut = layNgauNhienMotNut(nutke);
         danhSachNut(length(danhSachNut) + 1) = nut;
         A = 0;
     end
