@@ -1,4 +1,4 @@
-function [slosstong, powerout]=Sloss(a, Udm, powerdata, dscat, linedata)
+function [slosstong, powerout] = Sloss(a, Udm, powerdata, dscat, linedata)
 %a la nhanh cat;
 %linedata da duoc loai bo vong da tinh va loc tia
 %Tim duong di tu a den nut 3 gan nhat

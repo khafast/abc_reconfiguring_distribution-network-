@@ -1,31 +1,34 @@
-function linedata=loctia(linedata)
-A=1;
-if isempty(linedata)==1
-    A=0;
+function linedata = loctia(linedata)
+% loai bo tat ca cac nhanh hinh tia
+
+global logLevel
+import logging.*
+logger = Logger.getLogger('Chuongtrinhchinh');
+logger.setLevel(logLevel);
+
+logger.info('loc bo tat ca cac nhanh hinh tia');
+
+while numel(linedata) > 0
+    %Tim nut chi chua 1 nhanh
+    G = adj(linedata);
+    D = sum(G, 1);
+    danhSachNutChiCoKetNoiVoiMotNutKhac = find(D == 1);
+    if isempty(danhSachNutChiCoKetNoiVoiMotNutKhac)
+        break
+    end
+    
+    nutChiChuaMotNhanh = layNgauNhienMotNut(danhSachNutChiCoKetNoiVoiMotNutKhac);
+    danhSachCacNutCungNhanh = runstop(linedata, nutChiChuaMotNhanh);
+    
+    for b = 1:length(danhSachCacNutCungNhanh) - 1
+        nutA = danhSachCacNutCungNhanh(b);
+        nutB = danhSachCacNutCungNhanh(b + 1);
+        linedata = loaiBoLinedataChuaHaiNutLienKe(nutA, nutB, linedata);
+    end
+    
+    if isempty(linedata)
+        break
+    end
 end
-while A==1
-     %Tim nut chi chua 1 nhanh
-     G=adj(linedata);
-     D=sum(G,1);
-     nut1=find(D==1);
-     if isempty(nut1)
-        break
-     end
-     nut1=nut1(randperm(numel(nut1),1));
-    nutrun=runstop(linedata,nut1);
-    for b=1:length(nutrun)-1
-        for k=1:size(linedata,1)
-            if (linedata(k,2)==nutrun(b) && linedata(k,3)==nutrun(b+1))||...
-               (linedata(k,3)==nutrun(b) && linedata(k,2)==nutrun(b+1))
-                linedata(k,:)=0;
-            end
-        end
-     m=linedata(:,1)==0;
-     linedata(m,:)=[];
-     end
-     if isempty(linedata)
-        break
-     end
-end 
 end
 

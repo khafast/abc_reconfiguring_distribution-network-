@@ -138,7 +138,7 @@ logger.info(['Danh sach cac nhanh cat: ' chuyenSoThanhChu(cutlist)]);
 logger.info('{');
 for vitriCat = 1:numel(cutlist)
     linedataTaiViTriCat = linedata(cutlist(vitriCat), :);
-    logger.info(['cat giua nut #' chuyenSoThanhChu(linedataTaiViTriCat(2)) ' va nut #' chuyenSoThanhChu(linedataTaiViTriCat(3))]);
+    logger.info(['cat giua nut #' chuyenSoThanhChu(linedataTaiViTriCat(2)) ' va #' chuyenSoThanhChu(linedataTaiViTriCat(3))]);
 end
 logger.info('}');
 logger.info('========');

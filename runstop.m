@@ -5,7 +5,6 @@ logger = Logger.getLogger('Chuongtrinhchinh');
 logger.setLevel(logLevel);
 logger.finer(['Tim danh sach nut tren nhanh chua chua nut #' num2str(nutdau) ' (Start)'])
 
-
 G = graph(adj(linedata));
 D = sum(adj(linedata), 2);
 nut = nutdau;
