@@ -38,6 +38,6 @@ while A == 1
     end
 end
 
-logger.info(['Tim danh sach nut tren nhanh chua chua nut #' num2str(nutdau) ', danh sach nut la: ' num2str(danhSachNut)])
+logger.finer(['Tim danh sach nut tren nhanh chua chua nut #' num2str(nutdau) ', danh sach nut la: ' num2str(danhSachNut)])
 end
 

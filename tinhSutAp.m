@@ -1,11 +1,11 @@
-function dienap=sutap(Udm,cutlist,linedata,powerdataout)
+function dienap = tinhSutAp(Udm, cutlist, linedata, powerdataout)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
 logger.setLevel(logLevel);
 logger.finer('(Start)')
 
-powerdata=powerdataout;
+powerdata = powerdataout;
 %cat nhanh cat khoi luoi dien
 for i=1:length(cutlist)
     m=cutlist(i)==linedata(:,1);
