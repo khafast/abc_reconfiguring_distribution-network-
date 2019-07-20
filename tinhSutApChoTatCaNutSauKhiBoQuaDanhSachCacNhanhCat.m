@@ -17,7 +17,8 @@ danhSachDienApTrenTungNut = zeros(size(powerdata, 1), 2);
 danhSachDienApTrenTungNut(:, 1) = powerdata(:, 1);
 
 %Tim duong di
-G = graph(adj(linedata));
+G = taoDoiTuongGraph(linedata);
+
 danhSachNut = bfsearch(G, 1);
 m = danhSachDienApTrenTungNut(:, 1)==1;
 danhSachDienApTrenTungNut(m, 2) = Udm;

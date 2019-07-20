@@ -15,10 +15,8 @@ end
 
 A = 1;
 while A == 1
-    %Tim nut chi chua 1 nhanh
-    G = adj(banSauCuaLinedataMultiloop);
-    D = sum(G, 1);
-    nutCuoiTrenNhanhHinhTia = find(D == 1);
+    nutCuoiTrenNhanhHinhTia = timDanhSachNutCoMotLienKetVoiNutKhac(banSauCuaLinedataMultiloop);
+    
     vitriNut = nutCuoiTrenNhanhHinhTia == 1;
     if  sum(vitriNut) ~= 0
         nutCuoiTrenNhanhHinhTia(vitriNut) = [];

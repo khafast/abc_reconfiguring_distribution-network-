@@ -10,7 +10,8 @@ logger.info('loc bo tat ca cac nhanh hinh tia');
 
 while numel(linedata) > 0
     %Tim nut chi chua 1 nhanh
-    G = adj(linedata);
+    maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedata);
+    G = maTranKe;
     D = sum(G, 1);
     danhSachNutChiCoKetNoiVoiMotNutKhac = find(D == 1);
     if isempty(danhSachNutChiCoKetNoiVoiMotNutKhac)

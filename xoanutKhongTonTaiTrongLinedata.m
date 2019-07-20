@@ -7,7 +7,8 @@ logger.finer('(Start)')
 
 format short G;
 danhSachNutKhongTonTaiTrongLinedata = [];
-G = graph(adj(linedata));
+
+G = taoDoiTuongGraph(linedata);
 tong = dfsearch(G,1);
 for j = 1:size(powerdata,1)
     n = powerdata(j,1) == tong;

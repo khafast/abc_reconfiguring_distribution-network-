@@ -5,9 +5,9 @@ logger = Logger.getLogger('Chuongtrinhchinh');
 logger.setLevel(logLevel);
 logger.info('(Start)')
 
-G=graph(adj(linedata));
-data=G.Edges;
-data=data.EndNodes;
+G = taoDoiTuongGraph(linedata);
+data = G.Edges;
+data = data.EndNodes;
 for i=1:size(linedata,1)
     tontai=0;
     for j=1:size(data,1)

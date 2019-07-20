@@ -14,7 +14,7 @@ soLanRutTia=0;
 while true
      soLanRutTia=soLanRutTia+1;
      %Tim nut chi chua 1 nhanh
-     G=adj(linedata);
+     G = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedata);
      soLuongLienKetCuaTatCaNut = sum(G,1);
      danhSachNutChiNamTrenMotNhanh = find(soLuongLienKetCuaTatCaNut == 1);
      danhSachNutNguon = danhSachNutChiNamTrenMotNhanh == 1;

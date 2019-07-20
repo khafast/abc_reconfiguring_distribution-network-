@@ -52,7 +52,7 @@ load('linedata.mat');  load('powerdata.mat');load('nutnguon.mat');
 %load('sdlinedata.mat');load('sdpowerdata.mat');load('sdnutnguon.mat');linedata=sdlinedata; powerdata=sdpowerdata; nutnguon=sdnutnguon;
 
 figure('Name', 'Luoi dien truoc khi chay chuong trinh'); 
-plot(graph(adj(linedata)));
+plot(taoDoiTuongGraph(linedata));
 
 %Chuyen doi cac nguon ve nut 1
 if nutnguon ~= 1
@@ -150,7 +150,7 @@ logger.info(['Sut ap lon nhat o nut #' chuyenSoThanhChu(nutVmin') ' = ' chuyenSo
 logger.info(['Phan tram sut ap DeltaUmin = '  chuyenSoThanhChu((1-Vmin/22)*100) '%%']);
 logger.info('========');
 
-G = graph(adj(lineDataAfterRun));
+G = taoDoiTuongGraph(lineDataAfterRun);
 figure('Name', 'Luoi dien sau khi tinh toan'); plot(G);
 
 logger.info('(SUCCESS)')

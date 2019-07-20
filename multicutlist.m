@@ -9,7 +9,8 @@ linedata=linedatamultiloop;
 nutmax=max(max(linedata(:,2:3)));
 
 %%Chhuyen linedata ra ma tran ke;
-G = adj(linedata);
+maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedata);
+G = maTranKe;
 
 %%Tim cac vong co ban
 danhSachCacVongCoBan = timDanhSachCacVongCoBan(G);

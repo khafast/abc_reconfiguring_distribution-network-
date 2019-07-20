@@ -1,9 +1,8 @@
 function [linedatathay, danhSachCacNhanhDaBiThayThe] = rutgonLinedataBangCachThayTheCacNhanhTrungGian(linedatamultiloop, linedata)
 
 % Dem so nhanh lien ket nut
-G = adj(linedatamultiloop);
-D = sum(G, 2);
-danhSachNutCoHaiLienKet = find(D == 2);
+danhSachNutCoHaiLienKet = timDanhSachNutCoHaiLienKetVoiNutKhac(linedatamultiloop);
+
 nhanhmax = max(linedata(:, 1));
 
 vitriNhanhThayThe = 0;
@@ -36,9 +35,7 @@ while isempty(danhSachNutCoHaiLienKet) == 0
     linedatamultiloop = [linedatamultiloop; nhanhThayThe];
     
     %tinh laij so nut 2
-    G = adj(linedatamultiloop);
-    D = sum(G, 2);
-    danhSachNutCoHaiLienKet = find(D == 2);
+    danhSachNutCoHaiLienKet = timDanhSachNutCoHaiLienKetVoiNutKhac(linedatamultiloop);
 end
 linedatathay = linedatamultiloop;
 end

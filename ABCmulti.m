@@ -35,7 +35,8 @@ danhSachNutNguon = nutpower(linedatamultiloop, linedata);
 [linedatacatnguon,matrancat,nhanhthay] = cutmatrix(linedatamultiloop, linedata);
 
 %danh sach nut
-G = adj(linedatacatnguon);
+maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacatnguon);
+G = maTranKe;
 D = sum(G,1);
 danhsachnut = find(D~=0);
 
@@ -158,7 +159,8 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
             end
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
-            ketQuaCuaDepthFirstSearch = dfsearch(graph(adj(linedatacat)),danhSachNutNguon);
+            maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
+            ketQuaCuaDepthFirstSearch = dfsearch(graph(maTranKe),danhSachNutNguon);
             for vitri = 1:length(ketQuaCuaDepthFirstSearch)
                 p = ketQuaCuaDepthFirstSearch(vitri) == danhSachNutThu;
                 danhSachNutThu(p) = [];
@@ -243,7 +245,8 @@ function P = trienKhaiOngLamViec(CostFunction)
             end
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
-            list = dfsearch(graph(adj(linedatacat)),danhSachNutNguon);
+            maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
+            list = dfsearch(graph(maTranKe),danhSachNutNguon);
             for k = 1:length(list)
                 p = list(k) == danhSachNutThu;
                 danhSachNutThu(p) = [];
@@ -344,7 +347,8 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
             end
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
-            list = dfsearch(graph(adj(linedatacat)),danhSachNutNguon);
+            maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
+            list = dfsearch(graph(maTranKe), danhSachNutNguon);
             for k = 1:length(list)
                 p = list(k) == danhSachNutThu;
                 danhSachNutThu(p)=[];
@@ -433,7 +437,8 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
                 
                 %Tim nut lien ket
                 danhSachNutThu = danhsachnut;
-                list = dfsearch(graph(adj(linedatacat)),danhSachNutNguon);
+                maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
+                list = dfsearch(graph(maTranKe),danhSachNutNguon);
                 for k = 1:length(list)
                     p = list(k)==danhSachNutThu;
                     danhSachNutThu(p)=[];

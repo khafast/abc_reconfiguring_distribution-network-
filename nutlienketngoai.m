@@ -28,7 +28,8 @@ nut(1)=[]; %Xoa nut 0
 
 %Tim nut lien ket voi nut ngoai cac nut trong vong va do la nut nguon
 nutlienketngoai=[];
- G=graph(adj(linedata));
+
+G = taoDoiTuongGraph(linedata);
 for i=1:length(nut)
     if nut==1
        nutlienketngoai=1;
