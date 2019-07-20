@@ -19,7 +19,7 @@ while numel(linedata) > 0
     end
     
     nutChiChuaMotNhanh = layNgauNhienMotNut(danhSachNutChiCoKetNoiVoiMotNutKhac);
-    danhSachCacNutCungNhanh = runstop(linedata, nutChiChuaMotNhanh);
+    danhSachCacNutCungNhanh = timDanhSachNutCungMotNhanh(linedata, nutChiChuaMotNhanh);
     
     for b = 1:length(danhSachCacNutCungNhanh) - 1
         nutA = danhSachCacNutCungNhanh(b);

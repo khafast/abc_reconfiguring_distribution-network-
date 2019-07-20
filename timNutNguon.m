@@ -1,4 +1,4 @@
-function nutnguon = nutpower(linedatamultiloop, linedata)
+function nutnguon = timNutNguon(linedatamultiloop, linedata)
 
 NUT_NGUON = 1;
 

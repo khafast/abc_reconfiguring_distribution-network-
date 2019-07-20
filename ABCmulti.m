@@ -11,7 +11,7 @@ global p;
 global phamViTimNgauNhien;
 global linedatacatnguon;
 global danhsachnut;
-global danhSachNutNguon;
+global nutNguon;
 global nhanhthay;
 
 global logger;
@@ -29,7 +29,7 @@ heSoVongLap = 0.7;
 phamViTimNgauNhien = 4;
 
 %Tim nut nguon
-danhSachNutNguon = nutpower(linedatamultiloop, linedata);
+nutNguon = timNutNguon(linedatamultiloop, linedata);
 
 %xac dinh ma tran cat
 [linedatacatnguon,matrancat,nhanhthay] = cutmatrix(linedatamultiloop, linedata);
@@ -41,7 +41,7 @@ D = sum(G,1);
 danhsachnut = find(D~=0);
 
 % ham muc tieu
-CostFunction = @(dscat) Slossmul(dscat, danhSachNutNguon, Udm, linedatamultiloop, linedata, powerdata);
+CostFunction = @(dscat) Slossmul(dscat, nutNguon, Udm, linedatamultiloop, linedata, powerdata);
 
 % So bien moi co ong
 nVar = size(matrancat, 2) - 1;
@@ -134,7 +134,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
     %global phamViTimNgauNhien;
     global linedatacatnguon;
     global danhsachnut;
-    global danhSachNutNguon;
+    global nutNguon;
     global nhanhthay;
 
     % Create Initial Population
@@ -160,7 +160,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
             maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
-            ketQuaCuaDepthFirstSearch = dfsearch(graph(maTranKe),danhSachNutNguon);
+            ketQuaCuaDepthFirstSearch = dfsearch(graph(maTranKe),nutNguon);
             for vitri = 1:length(ketQuaCuaDepthFirstSearch)
                 p = ketQuaCuaDepthFirstSearch(vitri) == danhSachNutThu;
                 danhSachNutThu(p) = [];
@@ -202,7 +202,7 @@ function P = trienKhaiOngLamViec(CostFunction)
     global phamViTimNgauNhien;
     global linedatacatnguon;
     global danhsachnut;
-    global danhSachNutNguon;
+    global nutNguon;
     global nhanhthay;
     
     global logger;
@@ -246,7 +246,7 @@ function P = trienKhaiOngLamViec(CostFunction)
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
             maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
-            list = dfsearch(graph(maTranKe),danhSachNutNguon);
+            list = dfsearch(graph(maTranKe), nutNguon);
             for k = 1:length(list)
                 p = list(k) == danhSachNutThu;
                 danhSachNutThu(p) = [];
@@ -302,7 +302,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
     global phamViTimNgauNhien;
     global linedatacatnguon;
     global danhsachnut;
-    global danhSachNutNguon;
+    global nutNguon;
     global nhanhthay;
     
     global logger;
@@ -348,7 +348,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
             %Tim nut lien ket
             danhSachNutThu = danhsachnut;
             maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
-            list = dfsearch(graph(maTranKe), danhSachNutNguon);
+            list = dfsearch(graph(maTranKe), nutNguon);
             for k = 1:length(list)
                 p = list(k) == danhSachNutThu;
                 danhSachNutThu(p)=[];
@@ -404,7 +404,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
     %global phamViTimNgauNhien;
     global linedatacatnguon;
     global danhsachnut;
-    global danhSachNutNguon;
+    global nutNguon;
     global nhanhthay;
     
     global logger;
@@ -438,7 +438,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
                 %Tim nut lien ket
                 danhSachNutThu = danhsachnut;
                 maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacat);
-                list = dfsearch(graph(maTranKe),danhSachNutNguon);
+                list = dfsearch(graph(maTranKe), nutNguon);
                 for k = 1:length(list)
                     p = list(k)==danhSachNutThu;
                     danhSachNutThu(p)=[];

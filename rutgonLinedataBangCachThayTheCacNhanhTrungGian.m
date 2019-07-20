@@ -11,8 +11,8 @@ while isempty(danhSachNutCoHaiLienKet) == 0
     danhSachCacNhanhDaBiThayThe{nhanhmax + vitriNhanhThayThe} = [];
     
     nutNgauNhienTrongDanhSach = layNgauNhienMotNut(danhSachNutCoHaiLienKet);
-    danhSachCacNutLanCanCapMot = runstop(linedatamultiloop, nutNgauNhienTrongDanhSach);
-    danhSachCacNutLanCanCapHai = runstop(linedatamultiloop, danhSachCacNutLanCanCapMot(length(danhSachCacNutLanCanCapMot)));
+    danhSachCacNutLanCanCapMot = timDanhSachNutCungMotNhanh(linedatamultiloop, nutNgauNhienTrongDanhSach);
+    danhSachCacNutLanCanCapHai = timDanhSachNutCungMotNhanh(linedatamultiloop, danhSachCacNutLanCanCapMot(length(danhSachCacNutLanCanCapMot)));
     nhanhxoa = [];
     for i = 1:length(danhSachCacNutLanCanCapHai) - 1
         for k = 1:size(linedatamultiloop, 1)

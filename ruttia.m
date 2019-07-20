@@ -30,7 +30,7 @@ while true
      for i=1:length(danhSachNutChiNamTrenMotNhanh)
          nutHienTai = danhSachNutChiNamTrenMotNhanh(i);
          logger.info(['rut tia ' num2str(soLanRutTia) ': lan ' num2str(i) ': nut#' num2str(nutHienTai)]);
-         nutrun=runstop(linedata, nutHienTai);
+         nutrun = timDanhSachNutCungMotNhanh(linedata, nutHienTai);
          j=nutrun==1;
          nutrun(find(j)+1:numel(nutrun))=[];
          for vitriNutRun=1:length(nutrun)-1

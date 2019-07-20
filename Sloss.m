@@ -13,8 +13,8 @@ m = linedata(:, 1) == a;
 nut1 = linedata(m, 2);
 nut2 = linedata(m, 3);
 linedata(m, :) = [];
-run1 = runstop(linedata, nut1);
-run2 = runstop(linedata, nut2);
+run1 = timDanhSachNutCungMotNhanh(linedata, nut1);
+run2 = timDanhSachNutCungMotNhanh(linedata, nut2);
 powerout = powerdata;
 %Tinh cong suat tren nut thu 1
 sloss1 = 0;

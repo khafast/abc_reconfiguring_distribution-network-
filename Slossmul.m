@@ -33,7 +33,7 @@ while A == 1
         for i = 1:length(nutCuoiTrenNhanhHinhTia)
             nutrun = timDuongDiNganNhatGiuaHaiNut(banSauCuaLinedataMultiloop, nguon, nutCuoiTrenNhanhHinhTia(i));
             
-            danhSachNutTrenCungMotNhanh = runstop(banSauCuaLinedataMultiloop, nutCuoiTrenNhanhHinhTia(i));
+            danhSachNutTrenCungMotNhanh = timDanhSachNutCungMotNhanh(banSauCuaLinedataMultiloop, nutCuoiTrenNhanhHinhTia(i));
             nutCuoiCungTrongDanhSach = danhSachNutTrenCungMotNhanh(numel(danhSachNutTrenCungMotNhanh));
             m = nutCuoiCungTrongDanhSach == nutrun;
             if sum(m) ~= 0
