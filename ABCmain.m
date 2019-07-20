@@ -43,11 +43,11 @@ logger.info('Loc cac nhanh tia ra khoi luoi (Success)')
 
 %----------Tim vong doc lap------------------------------------------------
 
-VongDL = indeloop(linedata);
+VongDL = timDanhSachCacVongDocLap(linedata);
 
 %----------Tim vong kep------------------------------------------------- ---
 
-VongKep = multiloop(linedata);
+VongKep = timDanhSachCacVongNhieuNhanh(linedata);
 
 
 %chay vong lap

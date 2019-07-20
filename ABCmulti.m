@@ -92,11 +92,11 @@ boDemSoLanBoQua = zeros(kickThuocBayOng, 1);
 
 %% ABC Main Loop
 for it = 1:soVongLapToiDa
-    bangDanhGiaKhaNangThanhCong = trienKhaiGiaiDoanOngLamViec(CostFunction);
+    bangDanhGiaKhaNangThanhCong = trienKhaiOngLamViec(CostFunction);
     
-    bayOng = trienKhaiGiaiDoanOngGiamSat(bangDanhGiaKhaNangThanhCong, CostFunction, bayOng, kichThuocBayOngGiamSat);
+    bayOng = trienKhaiOngGiamSat(bangDanhGiaKhaNangThanhCong, CostFunction, bayOng, kichThuocBayOngGiamSat);
     
-    bayOng = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBoQua);
+    bayOng = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua);
     
     % Cap nhat giai phap tot nhat ma bay ong tim duoc
     for i = 1:kickThuocBayOng
@@ -189,7 +189,7 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
 end
 
 %% Giai doan Ong lam viec (Employed Bees Phase)
-function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
+function P = trienKhaiOngLamViec(CostFunction)
     %global CostFunction;
     global bayOng;
     global kickThuocBayOng;
@@ -205,7 +205,7 @@ function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
     
     global logger;
     
-    logger.info('');
+    logger.info(' ...');
     
     for i = 1:kickThuocBayOng
         A = 0;
@@ -288,7 +288,7 @@ function P = trienKhaiGiaiDoanOngLamViec(CostFunction)
 end
 
 %% Giai doan Ong giam sat (Onlooker Bees Phase )
-function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThuocBayOngGiamSat)
+function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOngGiamSat)
     %global CostFunction;
     %global bayOng;
     %global kickThuocBayOng;
@@ -304,12 +304,12 @@ function [bayOng] = trienKhaiGiaiDoanOngGiamSat(P, CostFunction, bayOng, kichThu
     
     global logger;
     
-    logger.info('');
+    logger.info(' ...');
     
     for vitri = 1:kichThuocBayOngGiamSat
         vitriOng = RouletteWheelSelection(P);
         A = 0;
-        danhSachNhanh=[];
+        danhSachNhanh = [];
         while A==0
             danhSachCat = matrancat;
             for j = 1:nVar
@@ -389,7 +389,7 @@ function i = RouletteWheelSelection(P)
 end
 
 %% Giai doan Ong Trinh Sat (Scout Bee Phase)
-function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
+function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
     %global CostFunction;
     %global bayOng;
     global kickThuocBayOng;
@@ -405,7 +405,7 @@ function [bayOng] = trienKhaiGiaiDoanOngTrinhSat(CostFunction, bayOng, gioiHanBo
     
     global logger;
     
-    logger.info('');
+    logger.info('...');
     
     for i=1:kickThuocBayOng
         if boDemSoLanBoQua(i) >= gioiHanBoQua

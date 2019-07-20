@@ -1,4 +1,4 @@
-function matrancat=multicutlist(linedatamultiloop)
+function matrancat = multicutlist(linedatamultiloop)
 
 %Tim danh sach cho bien cat
 %Input: linedata

@@ -1,105 +1,43 @@
-function indeloop=indeloop(linedata)
-global logLevel
-import logging.*
-logger = Logger.getLogger('Chuongtrinhchinh');
-logger.setLevel(logLevel);
-logger.info('(Start)')
+function vongcoban = phanLoaiRaCacVongCoBan(linedata)
+nutmax = max(max(linedata(:, 2:3)));
 
-% Tim cac nhanh thuoc cac vong doc lap
-%%nutmax
-nutmax=max(max(linedata(:,2:3)));
-
-%%Chhuyen linedata ra ma tran ke;
-G=adj(linedata);
+%%Chuyen linedata ra ma tran ke;
+G = adj(linedata);
 
 %%Tim cac vong co ban
-H=cyclebasis(G);
+danhSachCacVongCoBan = cyclebasis(G);
 
 %%Liet ke cac vong
-hang=(1:nutmax)';
-cot=(0:nutmax);
-for i=1:length(H)
-    H{i}=[hang, H{i}];
-    H{i}=[cot;H{i}];
+hang = (1:nutmax)';
+cot = (0:nutmax);
+for vitriVong = 1:length(danhSachCacVongCoBan)
+    danhSachCacVongCoBan{vitriVong} = [hang, danhSachCacVongCoBan{vitriVong}];
+    danhSachCacVongCoBan{vitriVong} = [cot; danhSachCacVongCoBan{vitriVong}];
     
-    % Tim nhanh rong va xoa
-    for r=2:size(H{i},1)
-        S=sum(H{i}(r,2:size(H{i},2)));
-        if S==0
-            H{i}(r,1)=0;
+    % Tim va xoa nhanh rong (empty)
+    for vitri = 2:size(danhSachCacVongCoBan{vitriVong},1)
+        S = sum(danhSachCacVongCoBan{vitriVong}(vitri, 2:size(danhSachCacVongCoBan{vitriVong},2)));
+        if S == 0
+            danhSachCacVongCoBan{vitriVong}(vitri, 1) = 0;
         end
     end
-    m=H{i}(:,1)==0;
-    m(1)=0;
-    H{i}(m,:)=[];
+    m = danhSachCacVongCoBan{vitriVong}(:,1) == 0;
+    m(1) = 0;
+    danhSachCacVongCoBan{vitriVong}(m,:) = [];
     
-    %Tim nut rong va xoa
-    for r=1:size(H{i},2)
-        S=sum(H{i}(2:size(H{i},1),r),2);
-        if S==0
-            H{i}(1,r)=0;
+    %Tim va xoa nut rong (empty)
+    for vitri = 1:size(danhSachCacVongCoBan{vitriVong}, 2)
+        S = sum(danhSachCacVongCoBan{vitriVong}(2:size(danhSachCacVongCoBan{vitriVong}, 1), vitri), 2);
+        if S == 0
+            danhSachCacVongCoBan{vitriVong}(1,vitri) = 0;
         end
     end
-    m=H{i}(1,:)==0;
-    m(1)=0;
-    H{i}(:,m)=[];
+    m = danhSachCacVongCoBan{vitriVong}(1,:) == 0;
+    m(1) = 0;
+    danhSachCacVongCoBan{vitriVong}(:,m) = [];
     
-    % Tong hop lai cac vong
-    vong=[];
-    for p=2:size(H{i},1)-1
-        for q=p:size(H{i},2)
-            if H{i}(p,q)==1
-                nut1=H{i}(p,1);
-                nut2=H{i}(1,q);
-                for r=1:size(linedata,1)
-                    if (linedata(r,2)==nut1 && linedata(r,3)==nut2) ||...
-                            (linedata(r,3)==nut1 && linedata(r,2)==nut2)
-                        vong(1,size(vong,2)+1)=linedata(r,1);
-                    end
-                end
-            end
-        end
-    end
-    loop{i}=vong;
-    loopsave{i}=vong;
 end
-
-%%Kiem tra vong doc lap
-% Tim vong co so nhanh nhieu nhat de tao matran chua cac nhanh
-maxmang=0;
-for i=1:length(loop)
-    if maxmang<=numel(loop{i})
-        maxmang=numel(loop{i});
-    end
-end
-
-% Chuyen tu mang te bao sang ma tran de de tinh toan
-mang=zeros(length(loop),maxmang);
-for i=1:length(loop)
-    for j=1:length(loop{i})
-        mang(i,j)=loop{i}(j);
-    end
-end
-
-% Xac dinh vong nao thuoc vong doc lap
-nhanhlienhop=ones(size(mang,1),1);
-for i=1:size(linedata,1)
-    m=linedata(i,1)==mang;
-    if sum(sum(m,1),2)>1
-        D=sum(m,2);
-        n=D~=0;
-        nhanhlienhop(n)=0;
-    end
-end
-
-%Ghi lai cac vong doc lap
-indeloop=[];
-for i=1:length(nhanhlienhop)
-    if nhanhlienhop(i)==1
-        indeloop=[indeloop;mang(i,:)];
-    end
-end
-logger.info('(Success)')
+vongcoban = danhSachCacVongCoBan;
 end
 
 function adj=adj(linedata)
@@ -116,6 +54,52 @@ end
 end
 
 function y=cyclebasis(G,form)
+% CYCLEBASIS - find a basis for the cycle subspace of a graph/network
+% usage: y=cyclebasis(G)
+%        y=cyclebasis(G,form)
+%
+% This can be useful for obtaining the equations for Kirchhoff's second
+% law for complicated networks.  The cycles in the basis (fundamental
+% cycle) correspond to a set of linearly independent conservation
+% equations.
+%
+% INPUTS: G, form
+%  G is the adjacency matrix of the undirected graph/network, with G(i,j)=1
+%   if vertices i and j are connected by a single edge.  Graph edges have
+%   no direction.  G can be full or sparse and real or logical.
+%   Non-logical matrices are set to G=(G~=0).
+%   Non-symmetric inputs are symmetrised by G=(G+G')>0.
+%  form (optional) is a string specifying the form of output:
+%   'adj' (default) for the adjacency matrices of the cycles;
+%   'path' for the lists of vertices which the cycles pass through.
+%
+% OUTPUTS: y
+%  y is a cell array of fundamental cycles (single loops) that form a basis
+%   of the cycle subspace.  All cycles and disjoint unions of cycles are a
+%   product (using xor) of fundamental cycles.  If form='adj', the
+%   adjacency matrices of the fundamental cycles are given, and any cycle
+%   satisfies C = xor(...(xor(y{i1},y{i2}),...),y{ik}) for some i1,...,ik.
+%   If form='path' then the cycles are specified as paths,
+%   e.g. [1,2,4] for the cycle passing through vertices 1,2,4.
+%
+% ALGORITHM:
+%  For each component of the graph, find a spanning tree, then for each
+%  missing edge add the edge to the tree and successively remove all leaves
+%  and what remains is a fundamental cycle.  So for a connected graph of v
+%  vertices and e edges, there are e-v+1 fundamental cycles.
+%
+% EXAMPLE: cycle subspace basis of complete graph on 3 vertices (with &
+%  without self-loops at every vertex) and 2 copies of same:
+%    cyclebasis(ones(3,3),'path')          % returns {1,2,[1,2,3],3}
+%    cyclebasis(ones(3,3)-eye(3,3),'path') % returns {[1,2,3]}
+%    cyclebasis(blkdiag(ones(3,3)-eye(3,3),ones(3,3)-eye(3,3)),'path')
+%                                          % returns {[1,2,3],[4,5,6]}
+
+% Author: Ben Petschel 26/6/2009
+%
+% Change history:
+%  26/6/2009 - first release
+
 
 % set default value of form, if necessary
 if (nargin<2) || isempty(form),

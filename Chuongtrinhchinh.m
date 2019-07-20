@@ -86,7 +86,7 @@ if nutnguon ~= 1
     powerdata = [D;powerdata];  
     logger.info('Chuyen doi cac nguon ve nut 1 (success)')
 end
-[linedata, powerdata] = xoanutroi(linedata, powerdata);
+[linedata, powerdata] = xoanutKhongTonTaiTrongLinedata(linedata, powerdata);
 
 
 % Chay thuat toan bay ong nhanh tao

@@ -1,4 +1,4 @@
-function multiloop=multiloop(linedata)
+function multiloop = timDanhSachCacVongNhieuNhanh(linedata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
