@@ -15,48 +15,48 @@ multiloop=[];
 nutmax=max(max(linedata(:,2:3)));
 
 %%Chhuyen linedata ra ma tran ke;
-G=adj(linedata);
+G = adj(linedata);
 
 %%Tim cac vong co ban
-H=cyclebasis(G);
+danhSachCacVongCoBan = timDanhSachCacVongCoBan(G);
 
 %%Liet ke cac vong 
 hang=(1:nutmax)';
 cot=(0:nutmax);
 loop=[];
-for i=1:length(H)
-    H{i}=[hang, H{i}];
-    H{i}=[cot;H{i}];
+for i=1:length(danhSachCacVongCoBan)
+    danhSachCacVongCoBan{i}=[hang, danhSachCacVongCoBan{i}];
+    danhSachCacVongCoBan{i}=[cot;danhSachCacVongCoBan{i}];
     
     % Tim nhanh rong va xoa
-    for r=2:size(H{i},1)
-        S=sum(H{i}(r,2:size(H{i},2)));
+    for r=2:size(danhSachCacVongCoBan{i},1)
+        S=sum(danhSachCacVongCoBan{i}(r,2:size(danhSachCacVongCoBan{i},2)));
         if S==0
-            H{i}(r,1)=0;
+            danhSachCacVongCoBan{i}(r,1)=0;
         end
     end
-    m=H{i}(:,1)==0;
+    m=danhSachCacVongCoBan{i}(:,1)==0;
     m(1)=0;
-    H{i}(m,:)=[];
+    danhSachCacVongCoBan{i}(m,:)=[];
     
     %Tim nut rong va xoa
-    for r=1:size(H{i},2)
-        S=sum(H{i}(2:size(H{i},1),r),2);
+    for r=1:size(danhSachCacVongCoBan{i},2)
+        S=sum(danhSachCacVongCoBan{i}(2:size(danhSachCacVongCoBan{i},1),r),2);
         if S==0
-            H{i}(1,r)=0;
+            danhSachCacVongCoBan{i}(1,r)=0;
         end
     end
-    m=H{i}(1,:)==0;
+    m=danhSachCacVongCoBan{i}(1,:)==0;
     m(1)=0;
-    H{i}(:,m)=[];
+    danhSachCacVongCoBan{i}(:,m)=[];
     
     % Tong hop lai cac vong
     vong=[];
-    for p=2:size(H{i},1)-1
-        for q=p:size(H{i},2)
-            if H{i}(p,q)==1
-               nut1=H{i}(p,1);
-               nut2=H{i}(1,q);
+    for p=2:size(danhSachCacVongCoBan{i},1)-1
+        for q=p:size(danhSachCacVongCoBan{i},2)
+            if danhSachCacVongCoBan{i}(p,q)==1
+               nut1=danhSachCacVongCoBan{i}(p,1);
+               nut2=danhSachCacVongCoBan{i}(1,q);
                for r=1:size(linedata,1)
                    if (linedata(r,2)==nut1 && linedata(r,3)==nut2) ||...
                       (linedata(r,3)==nut1 && linedata(r,2)==nut2)

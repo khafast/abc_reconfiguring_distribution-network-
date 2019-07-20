@@ -23,7 +23,7 @@ logger.info('(Start)')
 
 format short G;
 %he so vong lap
-heSoVongLap = 1;
+heSoVongLap = 0.7;
 
 %Pham vi tim ngau nhien
 phamViTimNgauNhien = 4;
