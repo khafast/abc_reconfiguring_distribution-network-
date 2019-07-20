@@ -34,7 +34,7 @@ baoCaoTienDo(linedata, powerdata);
 linedata = locnhanhtrung(linedata);
 
 [linedata, powerdata] = ruttia(Udm, linedata, powerdata);
-[linedata, powerdata] = thugon(linedata, powerdata);
+[linedata, powerdata] = thugonBangCachXoaPowerdataDuThuaVaDoiTenNut(linedata, powerdata);
 
 [linedata, powerdata] = ruttia(Udm, linedata, powerdata);
 linedata = locnhanhtrung(linedata);

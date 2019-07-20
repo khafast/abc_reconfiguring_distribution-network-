@@ -1,4 +1,4 @@
-function [linedatathay, danhSachCacNhanhDaBiThayThe] = rutgon(linedatamultiloop, linedata)
+function [linedatathay, danhSachCacNhanhDaBiThayThe] = rutgonLinedataBangCachThayTheCacNhanhTrungGian(linedatamultiloop, linedata)
 
 % Dem so nhanh lien ket nut
 G = adj(linedatamultiloop);

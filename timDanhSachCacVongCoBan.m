@@ -1,4 +1,4 @@
-function y=cyclebasis(G,form)
+function y = timDanhSachCacVongCoBan(G,form)
 % CYCLEBASIS - find a basis for the cycle subspace of a graph/network
 % usage: y=cyclebasis(G)
 %        y=cyclebasis(G,form)

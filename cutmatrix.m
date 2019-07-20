@@ -5,7 +5,7 @@ matranCatTrenLuoiThuc = multicutlist(linedatamultiloop);
 matranCatDaRutGon = matranCatTrenLuoiThuc;
 
 %Rut gon vong kep
-[linedataDaRutGon, danhSachCacNhanhDaBiThayThe] = rutgon(linedatamultiloop, linedata);
+[linedataDaRutGon, danhSachCacNhanhDaBiThayThe] = rutgonLinedataBangCachThayTheCacNhanhTrungGian(linedatamultiloop, linedata);
 for vitriNhanh = 1:length(danhSachCacNhanhDaBiThayThe)
     nhanhBiThayThe = danhSachCacNhanhDaBiThayThe{vitriNhanh};
     
