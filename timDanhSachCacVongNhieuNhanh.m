@@ -112,7 +112,7 @@ for i=1:size(indeloop,2)
         linedata(m,:)=[];
     end
 end
-linedata=loctia(linedata);
+linedata = xoaCacNhanhHinhTiaTrongLinedata(linedata);
 if isempty(linedata)==0
 %Ghi lai nhanh cua cac vong lien hop
 davong=[];

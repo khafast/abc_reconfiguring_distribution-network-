@@ -49,7 +49,7 @@ while A == 1
                 [sloss1, powerdata] = Slossab(nutA, nutB, Udm, powerdata, linedata);
                 slosstong = slosstong + sloss1;
                 
-                banSauCuaLinedataMultiloop = loaiBoLinedataChuaHaiNutLienKe(nutA, nutB, banSauCuaLinedataMultiloop);
+                banSauCuaLinedataMultiloop = xoaCacLinedataChuaHaiNutLienKe(nutA, nutB, banSauCuaLinedataMultiloop);
             end
         end
     else

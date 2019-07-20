@@ -1,4 +1,4 @@
-function linedata = loctia(linedata)
+function linedata = xoaCacNhanhHinhTiaTrongLinedata(linedata)
 % loai bo tat ca cac nhanh hinh tia
 
 global logLevel
@@ -24,7 +24,7 @@ while numel(linedata) > 0
     for b = 1:length(danhSachCacNutCungNhanh) - 1
         nutA = danhSachCacNutCungNhanh(b);
         nutB = danhSachCacNutCungNhanh(b + 1);
-        linedata = loaiBoLinedataChuaHaiNutLienKe(nutA, nutB, linedata);
+        linedata = xoaCacLinedataChuaHaiNutLienKe(nutA, nutB, linedata);
     end
     
     if isempty(linedata)

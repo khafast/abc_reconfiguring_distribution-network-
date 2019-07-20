@@ -1,4 +1,4 @@
-function [linedata, powerdata] = xoanutKhongTonTaiTrongLinedata(linedata, powerdata)
+function [linedata, powerdata] = xoaCacNutKhongTonTaiTrongLinedata(linedata, powerdata)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');

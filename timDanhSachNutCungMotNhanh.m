@@ -1,4 +1,4 @@
-function danhSachNut = runstop(linedata, nutdau)
+function danhSachNut = timDanhSachNutCungMotNhanh(linedata, nutdau)
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');
