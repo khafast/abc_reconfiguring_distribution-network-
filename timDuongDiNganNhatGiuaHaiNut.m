@@ -1,27 +1,26 @@
-function [danhsachnut, cost] = rmin(linedata, nutdau, nutcuoi)
-A = adjdij(linedata);
-s = nutdau;
-d = nutcuoi;
-[cost, danhsachnut] = dijkstra(A, s, d);
+function [danhSachNutGiuaHaiNut, tongDienTroGiuaHaiNut] = timDuongDiNganNhatGiuaHaiNut(linedata, nutdau, nutcuoi)
+matran = taoMaTranKeChoDienTroCuaLinedata(linedata);
+
+[tongDienTroGiuaHaiNut, danhSachNutGiuaHaiNut] = dungThuatToanDijkstraTinhDuongDiNganNhatGiuaHaiNut(matran, nutdau, nutcuoi);
 end
 
 
-function adidij=adjdij(linedata)
+function matran = taoMaTranKeChoDienTroCuaLinedata(linedata)
 
 %%Tim nut lon nhat
-nutmax=max(max(linedata(:,2:3)));
+nutmax = max(max(linedata(:,2:3)));
 
 %%tao ma tran ke adj
-adidij=zeros(nutmax);
+matran = zeros(nutmax);
 for i=1:size(linedata,1)
-    adidij(linedata(i,2),linedata(i,3))=linedata(i,4);
-    adidij(linedata(i,3),linedata(i,2))=linedata(i,4);
+    matran(linedata(i,2), linedata(i,3)) = linedata(i,4);
+    matran(linedata(i,3), linedata(i,2)) = linedata(i,4);
 end
 end
 
 
 
-function [e, L] = dijkstra(A,s,d)
+function [e, L] = dungThuatToanDijkstraTinhDuongDiNganNhatGiuaHaiNut(A, s, d)
 
 if s==d
     e=0;

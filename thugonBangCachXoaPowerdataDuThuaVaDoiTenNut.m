@@ -6,15 +6,8 @@ logger.setLevel(logLevel);
 logger.info('(Start)')
 
 %Liet ke cac nut
-danhSachNut = [];
-for i=1:size(linedata,1)
-    for j=2:3
-         m=linedata(i,j)==danhSachNut;
-         if sum(m)==0
-            danhSachNut(length(danhSachNut)+1)=linedata(i,j);
-         end
-    end
-end
+danhSachNut = timDanhSachNutTrongLinedata(linedata);
+
 bang = zeros(length(danhSachNut), 2);
 bang(:, 1)=danhSachNut';
 for i=1:size(bang,1)

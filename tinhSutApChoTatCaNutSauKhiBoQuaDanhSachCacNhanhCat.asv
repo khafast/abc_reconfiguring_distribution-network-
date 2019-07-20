@@ -9,8 +9,8 @@ NUT_NGUON = 1;
 
 powerdata = powerdataout;
 %cat nhanh cat khoi luoi dien
-for vitriNut = 1:length(cutlist)
-    m=cutlist(vitriNut) == linedata(:, 1);
+for vitriNut=1:length(cutlist)
+    m=cutlist(vitriNut) ==linedata(:,1);
     linedata(m, :) = [];
 end
 danhSachDienApTrenTungNut = zeros(size(powerdata, 1), 2);

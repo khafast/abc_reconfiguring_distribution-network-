@@ -6,17 +6,17 @@ slosstong = 0;
 %      Powerdata
 %Output nhanhcat:danhsach cac nhanh cat toi uu
 %      sloss ton that khi cat cac nhanh
-line = linedatamultiloop;
+banSauCuaLinedataMultiloop = linedatamultiloop;
 %xac dinh nut mot
 for i = 1:length(dscat)
-    vitriLinedata = dscat(i) == line(:, 1);
-    line(vitriLinedata, :) = [];
+    vitriLinedata = dscat(i) == banSauCuaLinedataMultiloop(:, 1);
+    banSauCuaLinedataMultiloop(vitriLinedata, :) = [];
 end
 
 A = 1;
 while A == 1
     %Tim nut chi chua 1 nhanh
-    G = adj(line);
+    G = adj(banSauCuaLinedataMultiloop);
     D = sum(G, 1);
     nutCuoiTrenNhanhHinhTia = find(D == 1);
     vitriNut = nutCuoiTrenNhanhHinhTia == 1;
@@ -33,9 +33,9 @@ while A == 1
     if numel(nutCuoiTrenNhanhHinhTia) > 0
         %Tim duong di
         for i = 1:length(nutCuoiTrenNhanhHinhTia)
-            nutrun = rmin(line, nguon, nutCuoiTrenNhanhHinhTia(i));
+            nutrun = timDuongDiNganNhatGiuaHaiNut(banSauCuaLinedataMultiloop, nguon, nutCuoiTrenNhanhHinhTia(i));
             
-            danhSachNutTrenCungMotNhanh = runstop(line, nutCuoiTrenNhanhHinhTia(i));
+            danhSachNutTrenCungMotNhanh = runstop(banSauCuaLinedataMultiloop, nutCuoiTrenNhanhHinhTia(i));
             nutCuoiCungTrongDanhSach = danhSachNutTrenCungMotNhanh(numel(danhSachNutTrenCungMotNhanh));
             m = nutCuoiCungTrongDanhSach == nutrun;
             if sum(m) ~= 0
@@ -51,13 +51,13 @@ while A == 1
                 [sloss1, powerdata] = Slossab(nutA, nutB, Udm, powerdata, linedata);
                 slosstong = slosstong + sloss1;
                 
-                line = loaiBoLinedataChuaHaiNutLienKe(nutA, nutB, line);
+                banSauCuaLinedataMultiloop = loaiBoLinedataChuaHaiNutLienKe(nutA, nutB, banSauCuaLinedataMultiloop);
             end
         end
     else
         A = 0;
     end
-    if isempty(line)
+    if isempty(banSauCuaLinedataMultiloop)
         break
     end
 end
