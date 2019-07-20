@@ -118,7 +118,7 @@ baoCaoTienDo(lineDataAfterRun, powerdata);
 [~, powerDataAfterRun] = ruttia(Udm, lineDataAfterRun, powerdata);
 logger.info('tinh xong powerDataAfterABC');
 
-dienap = tinhSutAp(Udm, cutlist, linedata, powerDataAfterRun);
+dienap = tinhSutApChoTatCaNutSauKhiBoQuaDanhSachCacNhanhCat(Udm, cutlist, linedata, powerDataAfterRun);
 Vmin = min(dienap(:,2));
 m = Vmin == dienap(:,2);
 nutVmin = dienap(m,1);
