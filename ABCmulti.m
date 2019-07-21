@@ -32,7 +32,7 @@ phamViTimNgauNhien = 4;
 nutNguon = timNutNguon(linedatamultiloop, linedata);
 
 %xac dinh ma tran cat
-[linedatacatnguon,matrancat,nhanhthay] = cutmatrix(linedatamultiloop, linedata);
+[linedatacatnguon, matrancat, nhanhthay] = timMaTranCatSauKhiRutGonLinedataMultiloop(linedatamultiloop, linedata);
 
 %danh sach nut
 maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacatnguon);
