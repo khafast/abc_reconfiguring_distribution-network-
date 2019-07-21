@@ -174,7 +174,7 @@ function veHinhSoSanh(linedata, lineDataAfterRun, cutlist)
 
     for vitriCat = 1:numel(cutlist)
         lineHienTai = linedata(cutlist(vitriCat), :);
-        G = G.addedge(lineHienTai(2), lineHienTai(3), 9999);
+        G = G.addedge(lineHienTai(2), lineHienTai(3), 11111);
     end
     figure('Name', 'So sanh truoc va sau khi tinh toan');
     plotHandler = plot(G, 'Layout', 'force3'); view(-180, 0)

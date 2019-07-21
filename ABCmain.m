@@ -67,7 +67,7 @@ while linedatarong == 0
             n = VongDL(i, j) == linedata(:,1);
             linedataVongLapDocLap = [linedataVongLapDocLap; linedata(n,:)];
         end
-        danhSachNutLienKetNgoai = nutlienketngoai(linedata, linedataVongLapDocLap);
+        danhSachNutLienKetNgoai = timDanhSachNutCoLienKetVoiCacNutNgoaiVongLienHopHienTai(linedata, linedataVongLapDocLap);
         %Neu chi co 1 nut co lien ket ngoai thi do la nut nguon
         % va cho chay ABC v cap nhat linedata powerdata
         if numel(danhSachNutLienKetNgoai) < 2
@@ -99,7 +99,7 @@ while linedatarong == 0
     while numel(VongKep) > 0
         i = i+1;
         linedataVongKep = VongKep{i};
-        danhSachNutLienKetNgoai = nutlienketngoai(linedata, linedataVongKep);
+        danhSachNutLienKetNgoai = timDanhSachNutCoLienKetVoiCacNutNgoaiVongLienHopHienTai(linedata, linedataVongKep);
         if numel(danhSachNutLienKetNgoai) < 2
             [nhanhcat] = ABCmulti(Udm, linedataVongKep, linedata,powerdata);
             cutlist = [cutlist,nhanhcat];
