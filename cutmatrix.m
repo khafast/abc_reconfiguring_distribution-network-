@@ -1,7 +1,7 @@
 function [linedataDaRutGon, matranCatDaRutGon, danhSachCacNhanhDaBiThayThe] = cutmatrix(linedatamultiloop, linedata)
 
 % Xac dinh ma tran cat tren luoi thuc
-matranCatTrenLuoiThuc = multicutlist(linedatamultiloop);
+matranCatTrenLuoiThuc = timMaTranCatTrenCacVongLienHop(linedatamultiloop);
 matranCatDaRutGon = matranCatTrenLuoiThuc;
 
 %Rut gon vong kep

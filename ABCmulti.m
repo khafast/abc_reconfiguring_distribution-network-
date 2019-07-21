@@ -207,7 +207,7 @@ function P = trienKhaiOngLamViec(CostFunction)
     
     global logger;
     
-    logger.info(' ...');
+    logger.fine(' ...');
     
     for i = 1:kickThuocBayOng
         A = 0;
@@ -307,7 +307,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
     
     global logger;
     
-    logger.info(' ...');
+    logger.fine(' ...');
     
     for vitri = 1:kichThuocBayOngGiamSat
         vitriOng = RouletteWheelSelection(P);
@@ -409,7 +409,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
     
     global logger;
     
-    logger.info('...');
+    logger.fine('...');
     
     for i=1:kickThuocBayOng
         if boDemSoLanBoQua(i) >= gioiHanBoQua

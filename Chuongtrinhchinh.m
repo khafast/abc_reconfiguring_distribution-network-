@@ -52,7 +52,7 @@ load('linedata.mat');  load('powerdata.mat');load('nutnguon.mat');
 %load('sdlinedata.mat');load('sdpowerdata.mat');load('sdnutnguon.mat');linedata=sdlinedata; powerdata=sdpowerdata; nutnguon=sdnutnguon;
 
 figure('Name', 'Luoi dien truoc khi chay chuong trinh'); 
-plot(taoDoiTuongGraph(linedata));
+plot(taoDoiTuongGraph(linedata), 'Layout', 'force3'); view(-180, 0);
 
 %Chuyen doi cac nguon ve nut 1
 if nutnguon ~= 1
