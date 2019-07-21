@@ -150,8 +150,7 @@ logger.info(['Sut ap lon nhat o nut #' chuyenSoThanhChu(nutVmin') ' = ' chuyenSo
 logger.info(['Phan tram sut ap DeltaUmin = '  chuyenSoThanhChu((1-Vmin/22)*100) '%%']);
 logger.info('========');
 
-G = taoDoiTuongGraph(lineDataAfterRun);
-figure('Name', 'Luoi dien sau khi tinh toan'); plot(G);
+veHinhSoSanh(linedata, lineDataAfterRun, cutlist);
 
 logger.info('(SUCCESS)')
 
@@ -162,4 +161,26 @@ fclose all;
 function chu = chuyenSoThanhChu(so)
     doPhanGiaiSoThapPhan = 3;
     chu = num2str(so, doPhanGiaiSoThapPhan);
+end
+
+function veHinhSoSanh(linedata, lineDataAfterRun, cutlist) 
+    G = taoDoiTuongGraph(lineDataAfterRun);
+    figure('Name', 'Luoi dien sau khi tinh toan'); plot(G);
+
+    edgeLabel = cell(1, size(G.Edges, 1));
+    for i = 1:numel(edgeLabel)
+        edgeLabel{i} = '';
+    end
+
+    for vitriCat = 1:numel(cutlist)
+        lineHienTai = linedata(cutlist(vitriCat), :);
+        G = G.addedge(lineHienTai(2), lineHienTai(3), 9999);
+    end
+    figure('Name', 'So sanh truoc va sau khi tinh toan');
+    plotHandler = plot(G, 'Layout', 'force3'); view(-180, 0)
+    plotHandler.EdgeLabelMode = 'auto';
+
+    for i = 1:numel(plotHandler.NodeLabel)
+        plotHandler.NodeLabel{i} = ['#' plotHandler.NodeLabel{i}];
+    end
 end
