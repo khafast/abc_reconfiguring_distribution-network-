@@ -56,35 +56,7 @@ plot(taoDoiTuongGraph(linedata), 'Layout', 'force3'); view(-180, 0);
 
 %Chuyen doi cac nguon ve nut 1
 if nutnguon ~= 1
-    logger.info('Chuyen doi cac nguon ve nut 1 (start)')
-    nutmax = max(max(linedata(:,2:3)));
-    
-    m = linedata(:,2) == 1;
-    linedata(m,2) = nutmax+1;
-    
-    m = linedata(:,3) == 1;
-    linedata(m,3) = nutmax + 1;
-    
-    m = powerdata(:,1) == 1;
-    powerdata(m,1) = nutmax + 1;
-    
-    for vitriNutNguon = 1:length(nutnguon)
-        vitriTrongLinedataMaNutBatDauLaNutNguon = nutnguon(vitriNutNguon) == linedata(:,2);
-        linedata(vitriTrongLinedataMaNutBatDauLaNutNguon, 2) = 1;
-        
-        vitriTrongLinedataMaNutKetThucLaNutNguon = nutnguon(vitriNutNguon) == linedata(:,3);
-        linedata(vitriTrongLinedataMaNutKetThucLaNutNguon, 3) = 1;
-        
-        vitriNutNguonTrongPowerdata = nutnguon(vitriNutNguon) == powerdata(:,1);
-        powerdata(vitriNutNguonTrongPowerdata, 1) = 1;
-    end
-    m = powerdata(:,1)==1;
-    power = powerdata(m,:);
-    powerdata(m,:) = [];
-    D = sum(power,1);
-    D(1) = 1;
-    powerdata = [D;powerdata];  
-    logger.info('Chuyen doi cac nguon ve nut 1 (success)')
+    [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata);
 end
 [linedata, powerdata] = xoaCacNutKhongTonTaiTrongLinedata(linedata, powerdata);
 
@@ -96,7 +68,7 @@ logger.info('Phan tich du lieu thu duoc (Start)')
 logger.info(['Danh sach cac nhanh cat: ' num2str(cutlist)]);
 logger.info('{');
 lineDataAfterRun = linedata;
-for i=1:length(cutlist)
+for i = 1:length(cutlist)
     m = cutlist(i) == lineDataAfterRun(:,1);
     
     % for plot
