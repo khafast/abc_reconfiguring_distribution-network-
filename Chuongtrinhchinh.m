@@ -115,7 +115,7 @@ end
 logger.info('}');
 
 baoCaoTienDo(lineDataAfterRun, powerdata);
-[~, powerDataAfterRun] = ruttia(Udm, lineDataAfterRun, powerdata);
+[~, powerDataAfterRun] = tinhPowerDataChoCacNhanhHinhTia(Udm, lineDataAfterRun, powerdata);
 logger.info('tinh xong powerDataAfterABC');
 
 dienap = tinhSutApChoTatCaNutSauKhiBoQuaDanhSachCacNhanhCat(Udm, cutlist, linedata, powerDataAfterRun);
@@ -181,6 +181,6 @@ function veHinhSoSanh(linedata, lineDataAfterRun, cutlist)
     plotHandler.EdgeLabelMode = 'auto';
 
     for i = 1:numel(plotHandler.NodeLabel)
-        plotHandler.NodeLabel{i} = ['#' plotHandler.NodeLabel{i}];
+        plotHandler.NodeLabel{i} = ['n' plotHandler.NodeLabel{i} ''];
     end
 end

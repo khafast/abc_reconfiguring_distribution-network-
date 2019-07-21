@@ -30,13 +30,13 @@ cutlist=[cutlist,nhanhlienketnguon];
 logger.info('Loc cac nhanh tia ra khoi luoi (Start)')
 baoCaoTienDo(linedata, powerdata);
 
-[linedata, powerdata] = ruttia(Udm, linedata, powerdata);
+[linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
 linedata = locnhanhtrung(linedata);
 
-[linedata, powerdata] = ruttia(Udm, linedata, powerdata);
+[linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
 [linedata, powerdata] = thugonBangCachXoaPowerdataDuThuaVaDoiTenNut(linedata, powerdata);
 
-[linedata, powerdata] = ruttia(Udm, linedata, powerdata);
+[linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
 linedata = locnhanhtrung(linedata);
 logger.info('Loc cac nhanh tia ra khoi luoi (Success)')
 %------------------------------MAIN----------------------------------------
@@ -76,7 +76,7 @@ while linedatarong == 0
             %Loc tia va tinh cong suat
             q = nhanhcat == linedata(:,1);
             linedata(q,:) = [];
-            [ linedata, powerdata ] = ruttia(Udm,linedata,powerdata);
+            [ linedata, powerdata ] = tinhPowerDataChoCacNhanhHinhTia(Udm,linedata,powerdata);
             for k = 1:numel(VongDL(i,:))
                 m = VongDL(i,k) == linedata(:,1);
                 linedata(m,1) = 0;
@@ -88,7 +88,7 @@ while linedatarong == 0
             % Loc tia va tinh cong suat
             % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút    ngu?n th? c?p (nút r? nhánh)
             %logger.info('rut tia linedata va tinh lai cong suat truyen va cong suat ton that')
-            [ linedata, powerdata ] = ruttia(Udm, linedata, powerdata);
+            [ linedata, powerdata ] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
             
             baoCaoTienDo(linedata, powerdata);
         end
@@ -109,7 +109,7 @@ while linedatarong == 0
                 linedata(m,:) = [];
             end
             
-            [ linedata, powerdata ] = ruttia(Udm, linedata, powerdata);
+            [ linedata, powerdata ] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
             for j = 1:size(linedataVongKep, 1)
                 n = linedataVongKep(j,1) == linedata(:,1);
                 linedata(n,1) = 0;
@@ -122,7 +122,7 @@ while linedatarong == 0
         % Tinh cong suat
         % L?c các nhánh là hình tia và tính công su?t truy?n và công su?t t?n th?t v? nút ngu?n th? c?p (nút r? nhánh)
         %logger.info('rut tia linedata va tinh lai cong suat truyen va cong suat ton that')
-        [linedata, powerdata] = ruttia(Udm, linedata, powerdata);
+        [linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
         
         baoCaoTienDo(linedata, powerdata);
     end
