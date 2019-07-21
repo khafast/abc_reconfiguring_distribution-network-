@@ -31,13 +31,13 @@ logger.info('Loc cac nhanh tia ra khoi luoi (Start)')
 baoCaoTienDo(linedata, powerdata);
 
 [linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
-linedata = locnhanhtrung(linedata);
+linedata = xoaLinedataCoLienKetGiuaHaiNutBiTrungLap(linedata);
 
 [linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
 [linedata, powerdata] = thugonBangCachXoaPowerdataDuThuaVaDoiTenNut(linedata, powerdata);
 
 [linedata, powerdata] = tinhPowerDataChoCacNhanhHinhTia(Udm, linedata, powerdata);
-linedata = locnhanhtrung(linedata);
+linedata = xoaLinedataCoLienKetGiuaHaiNutBiTrungLap(linedata);
 logger.info('Loc cac nhanh tia ra khoi luoi (Success)')
 %------------------------------MAIN----------------------------------------
 
