@@ -1,5 +1,6 @@
 function baoCaoDuLieu(tenBien, giaTriBien)
-disp([tenBien ' = ']);
-disp(giaTriBien);
+% In ten va gia tri cua bien duoc truyen vao
+    disp([tenBien ' = ']);
+    disp(giaTriBien);
 end
 

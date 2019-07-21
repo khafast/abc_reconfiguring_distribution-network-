@@ -1,4 +1,5 @@
-function [linedata, powerdata] = untitled(linedata, powerdata)
+function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata)
+% Chuyen nut nguon ve nut 1 de don gian hoa bai toan
     global logLevel
     import logging.*
     logger = Logger.getLogger('Chuongtrinhchinh');

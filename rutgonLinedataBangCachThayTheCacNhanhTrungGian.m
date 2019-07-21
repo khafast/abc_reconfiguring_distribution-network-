@@ -1,4 +1,17 @@
 function [linedatathay, danhSachCacNhanhDaBiThayThe] = rutgonLinedataBangCachThayTheCacNhanhTrungGian(linedatamultiloop, linedata)
+% Rut gon linedata bang cach thay the cac nhanh trung gian
+% Vi du: 
+% -
+% + dau vao 1: a -> b -> c -> d
+%                    \-> e -> f
+%
+% + dau vao 2: [a; b; c; d; e; f; g; h; i; j; k]
+%
+% -
+% + dau ra 1: a -> b -> d
+%                   \-> f
+% 
+% + dau ra 2: [c; e]
 
 % Dem so nhanh lien ket nut
 danhSachNutCoHaiLienKet = timDanhSachNutCoHaiLienKetVoiNutKhac(linedatamultiloop);

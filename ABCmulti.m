@@ -1,4 +1,6 @@
-function [nhanhcat, Ploss, Bestpower]=ABCmulti(Udm, linedatamultiloop, linedata, powerdata)
+function [nhanhcat, Ploss, Bestpower] = ABCmulti(Udm, linedatamultiloop, linedata, powerdata)
+% Chay thuat toan bay ong nhan tao (ABC) tren cac vong lien-hop (multiple loops)
+
 global logLevel
 
 global CostFunction;

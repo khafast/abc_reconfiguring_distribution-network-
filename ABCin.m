@@ -1,4 +1,6 @@
-function [nhanhcat,Ploss,Bestpower]=ABCin(dscat, Udm, linedata, powerdata)
+function [nhanhcat, Ploss, Bestpower] = ABCin(dscat, Udm, linedata, powerdata)
+% Chay thuat toan bay ong nhan tao (ABC) tren cac vong doc lap (independent loops)
+
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');

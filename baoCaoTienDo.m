@@ -1,4 +1,6 @@
 function baoCaoTienDo(linedata, powerdata)
+% In so luong linedata va powerdata hien tai de quan sat
+
 global logLevel;
 persistent logger;
 

@@ -1,4 +1,6 @@
 function [cutlist,Ploss,DeltaP,linedata,powerdata] = ABCmain(Udm, linedata, powerdata)
+% Dieu khien bay ong nhan tao (ABC)
+
 global logLevel
 import logging.*
 logger = Logger.getLogger('Chuongtrinhchinh');

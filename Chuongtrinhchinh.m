@@ -25,6 +25,7 @@ clc;
 clear;
 feature('DefaultCharacterSet','UTF-8');
 
+%%Chuan bi logger cho chuong trinh chinh
 import logging.*
 global logLevel
 %logLevel = Level.FINER; 
@@ -69,16 +70,16 @@ logger.info(['Danh sach cac nhanh cat: ' num2str(cutlist)]);
 logger.info('{');
 lineDataAfterRun = linedata;
 for i = 1:length(cutlist)
-    m = cutlist(i) == lineDataAfterRun(:,1);
+    m = cutlist(i) == lineDataAfterRun(:, 1);
     
     % for plot
     tmpLineData = lineDataAfterRun(m,:);
     nutDau = num2str(tmpLineData(2));
     nutCuoi = num2str(tmpLineData(3));
-    logger.info(['loai bo linedata: ' num2str(lineDataAfterRun(m,:))]);
+    logger.info(['loai bo linedata: ' num2str(lineDataAfterRun(m, :))]);
     % end for plot
     
-    lineDataAfterRun(m,:)=[];
+    lineDataAfterRun(m, :) = [];
     
     % plot
     %figure('Name', ['(' num2str(i) ') Hinh sau khi cat giua #' nutDau ' va #' nutCuoi]); 
@@ -91,14 +92,14 @@ baoCaoTienDo(lineDataAfterRun, powerdata);
 logger.info('tinh xong powerDataAfterABC');
 
 dienap = tinhSutApChoTatCaNutSauKhiBoQuaDanhSachCacNhanhCat(Udm, cutlist, linedata, powerDataAfterRun);
-Vmin = min(dienap(:,2));
-m = Vmin == dienap(:,2);
-nutVmin = dienap(m,1);
+Vmin = min(dienap(:, 2));
+m = Vmin == dienap(:, 2);
+nutVmin = dienap(m, 1);
 
 Ptotalload = sum(powerdata,1);
 Ptotalload = Ptotalload(2);
-m = powerdata(:,1)==1;
-Ptotal = powerDataAfterRun(m,4);
+m = powerdata(:, 1) == 1;
+Ptotal = powerDataAfterRun(m, 4);
 Ploss = Ptotal + powerDataAfterRun(m,2) - Ptotalload;
 DeltaP = Ploss/Ptotal*100;
 
