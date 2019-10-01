@@ -27,8 +27,8 @@ format short G;
 %he so vong lap
 heSoVongLap = 0.7;
 
-%Pham vi tim ngau nhien
-phamViTimNgauNhien = 4;
+%Pham vi tim ngau nhien TODO: cang chinh chi so nay de ho tro mang 33 nut
+phamViTimNgauNhien = 6;
 
 %xac dinh ma tran cat
 [linedatacatnguon, matrancat, nhanhthay] = timMaTranCatSauKhiRutGonLinedataMultiloop(linedatamultiloop, linedata);
