@@ -30,11 +30,11 @@ heSoVongLap = 0.7;
 %Pham vi tim ngau nhien
 phamViTimNgauNhien = 4;
 
-%Tim nut nguon
-nutNguon = timNutNguon(linedatamultiloop, linedata);
-
 %xac dinh ma tran cat
 [linedatacatnguon, matrancat, nhanhthay] = timMaTranCatSauKhiRutGonLinedataMultiloop(linedatamultiloop, linedata);
+
+%Tim nut nguon
+nutNguon = timNutNguon(linedatacatnguon, linedata);
 
 %danh sach nut
 maTranKe = taoMaTranKeDeDanhDauKetNoiGiuaCacNutTrongLinedata(linedatacatnguon);
@@ -182,6 +182,8 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
                 nhanhcatthuc(length(nhanhcatthuc) + 1) = nhanhthay1;
             end
         end
+        
+        
         bayOng(i).Position = nhanhcatthuc;
         [ploss, power] = CostFunction(bayOng(i).Position);
         bayOng(i).Cost.ploss = ploss;
