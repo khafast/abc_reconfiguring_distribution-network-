@@ -44,8 +44,13 @@ logger.info('(START)')
 
 %-----------------------Main-----------------------------------------------
 load('Udm.mat');
+
+load('du_lieu_NK_541_nut.mat');
+
+%load('du_lieu_16_nut.mat');
+
 %Du lieu 33 nut
-load('du_lieu_33_nut.mat');
+%load('du_lieu_33_nut.mat');
 
 %Du lieu 27 nut
 %load('linedata.mat');  load('powerdata.mat');load('nutnguon.mat');
