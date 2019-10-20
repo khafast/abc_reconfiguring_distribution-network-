@@ -65,7 +65,7 @@ plot(taoDoiTuongGraph(linedata), 'Layout', 'force'); view(0, 90);
 
 %Chuyen doi cac nguon ve nut 1
 if any(nutnguon ~= 1)
-    [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon);
+    [linedata, powerdata, danhsachLineDataChuaNutNguon] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon);
 end
 [linedata, powerdata] = xoaCacNutKhongTonTaiTrongLinedata(linedata, powerdata);
 
@@ -118,7 +118,18 @@ cutlist = sort(cutlist, 2, 'descend');
 logger.info('========');
 logger.info(['Danh sach cac nhanh cat: ' chuyenSoThanhChu(cutlist)]);
 logger.info('{');
-linedatafinal = linedata; % for view on diaram tab view data
+
+%tra lai ten nut ban dau (truoc khi quy ve nut #1)
+for index = 1:size(danhsachLineDataChuaNutNguon)
+    lineId = danhsachLineDataChuaNutNguon(index, 1);
+    column = danhsachLineDataChuaNutNguon(index, 2);
+    nut = danhsachLineDataChuaNutNguon(index, 3);
+    
+    m = lineId == linedata(:, 1);
+    linedata(m, column) = nut;
+end
+% for view on diaram tab view data
+linedatafinal = linedata; 
 
 for vitriCat = 1:numel(cutlist)
     linedataTaiViTriCat = linedata(cutlist(vitriCat), :);

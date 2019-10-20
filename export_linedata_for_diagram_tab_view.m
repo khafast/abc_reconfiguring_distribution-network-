@@ -7,6 +7,9 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
     R_INDEX = 4;
     X_INDEX = 5;
     DEFAULT_NAME = 'n';
+    global POWER_NODE
+    POWER_NODE = nutnguon;
+    
     global OPEN_BRACKET
     global CLOSE_BRACKET
     OPEN_BRACKET = '((';
@@ -24,7 +27,7 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
     nutNguonCount = size(nutnguon, SIZE_ROW);
 
     %Ve do thi co ban
-    diagramContent = 'graph TD';
+    diagramContent = ['graph TD %%%% created: ', datestr(datetime)];
     for index = 1:lineCount
        from = linedata(index, FROM_INDEX);
        to = linedata(index, TO_INDEX);
@@ -110,7 +113,23 @@ detailInfo = [detailInfo, '"', CLOSE_BRACKET];
 end
 
 function volt = tinhDienApSauSutApTaiNut(dienApSauSutAp, nutId)
-m = nutId == dienApSauSutAp(:, 1);
-volt = dienApSauSutAp(m, 2);
-volt = round(volt, 2);
+    if kiemTraCoPhaiNutNguon(nutId)
+        volt = evalin('base', 'Udm');
+    else
+        m = nutId == dienApSauSutAp(:, 1);
+        volt = dienApSauSutAp(m, 2);
+        volt = round(volt, 2);
+    end
+end
+
+function laNutNguon = kiemTraCoPhaiNutNguon(nodeId)
+    global POWER_NODE;
+    laNutNguon = false;
+    
+    for index = 1:numel(POWER_NODE)
+       if nodeId == POWER_NODE(index)
+           laNutNguon = true;
+           break;
+       end
+    end
 end

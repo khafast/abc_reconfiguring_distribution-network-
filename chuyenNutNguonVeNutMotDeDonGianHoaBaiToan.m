@@ -1,4 +1,4 @@
-function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon)
+function [linedata, powerdata, danhsachLineDataChuaNutNguon] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon)
 % Chuyen nut nguon ve nut 1 de don gian hoa bai toan
     global logLevel
     import logging.*
@@ -25,13 +25,15 @@ function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(lined
 %     linedata = [linedata; lineCount + 1, NUT_1, NUT_CUOI_CUNG_CONG_MOT, 0, 0];
 %     
 %     powerdata = [powerdata; NUT_CUOI_CUNG_CONG_MOT, 0, 0, 0, 0];
-    
+
+    danhsachLineDataChuaNutNguon = [];
     for vitriNutNguon = 1:length(nutnguon)
-        vitriTrongLinedataMaNutBatDauLaNutNguon = nutnguon(vitriNutNguon) == linedata(:,2);
-        linedata(vitriTrongLinedataMaNutBatDauLaNutNguon, 2) = 1;
         
-        vitriTrongLinedataMaNutKetThucLaNutNguon = nutnguon(vitriNutNguon) == linedata(:,3);
-        linedata(vitriTrongLinedataMaNutKetThucLaNutNguon, 3) = 1;
+        column = 2;
+        [linedata, danhsachLineDataChuaNutNguon] = thayTheNutNguonBangNutMot(linedata, danhsachLineDataChuaNutNguon, nutnguon(vitriNutNguon), column);
+        
+        column = 3;
+        [linedata, danhsachLineDataChuaNutNguon] = thayTheNutNguonBangNutMot(linedata, danhsachLineDataChuaNutNguon, nutnguon(vitriNutNguon), column);
         
         vitriNutNguonTrongPowerdata = nutnguon(vitriNutNguon) == powerdata(:,1);
         powerdata(vitriNutNguonTrongPowerdata, 1) = 1;
@@ -45,3 +47,20 @@ function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(lined
     logger.info('(success)')
 end
 
+function [linedata, danhsachLineDataChuaNutNguon] = thayTheNutNguonBangNutMot(linedata, danhsachLineDataChuaNutNguon, nutNguonHienTai, column)
+    vitriTrongLinedata = [];
+    
+    for index = 1:size(linedata, 1)
+        if nutNguonHienTai == linedata(index, column)
+           vitriTrongLinedata = [vitriTrongLinedata, index];
+           break
+        end
+    end
+    
+    if any(vitriTrongLinedata)
+        for index = 1:size(vitriTrongLinedata)
+            danhsachLineDataChuaNutNguon = [danhsachLineDataChuaNutNguon; vitriTrongLinedata(index), column, linedata(vitriTrongLinedata, column)];
+        end
+    end
+    linedata(vitriTrongLinedata, column) = 1;
+end
