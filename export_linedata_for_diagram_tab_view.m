@@ -67,7 +67,7 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
     
     
 
-    fileID = fopen('_digram_tab_view_data.txt','w');
+    fileID = fopen('_xem_ket_qua_su_dung_DiagramTab_GoogleChromeExtension.txt','w');
     fprintf(fileID, diagramContent);
     fclose(fileID);
 end
