@@ -45,7 +45,7 @@ logger.info('(START)')
 %-----------------------Main-----------------------------------------------
 load('Udm.mat');
 
-load('du_lieu_NK_538_nut.mat');
+load('du_lieu_NK_3_nguon.mat');
 
 %load('du_lieu_16_nut.mat');
 
@@ -64,6 +64,7 @@ figure('Name', 'Luoi dien truoc khi chay chuong trinh');
 plot(taoDoiTuongGraph(linedata), 'Layout', 'force'); view(0, 90);
 
 %Chuyen doi cac nguon ve nut 1
+danhsachLineDataChuaNutNguon = [];
 if any(nutnguon ~= 1)
     [linedata, powerdata, danhsachLineDataChuaNutNguon] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon);
 end
@@ -146,7 +147,7 @@ logger.info(['Sut ap lon nhat o nut #' chuyenSoThanhChu(nutVmin') ' = ' chuyenSo
 logger.info(['Phan tram sut ap DeltaUmin = '  chuyenSoThanhChu((1-Vmin/22)*100) '%%']);
 logger.info('========');
 
-veHinhSoSanhLineDataBeforeAndAfterRun(linedata, lineDataAfterRun, cutlist);
+%veHinhSoSanhLineDataBeforeAndAfterRun(linedata, lineDataAfterRun, cutlist);
 
 export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal, dienApSauSutAp)
 logger.info('(SUCCESS)')
@@ -154,6 +155,3 @@ logger.info('(SUCCESS)')
 logManager.resetAll();
 fclose all;
 %logManager.printLoggers();
-
-
-

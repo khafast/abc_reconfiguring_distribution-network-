@@ -25,10 +25,10 @@ logger.info('(Start)')
 
 format short G;
 %he so vong lap
-heSoVongLap = 7;
+heSoVongLap = 0.7;
 
 %Pham vi tim ngau nhien TODO: cang chinh chi so nay de ho tro mang 33 nut
-phamViTimNgauNhien = 6;
+phamViTimNgauNhien = 12;
 
 %xac dinh ma tran cat
 [linedatacatnguon, matrancat, nhanhthay] = timMaTranCatSauKhiRutGonLinedataMultiloop(linedatamultiloop, linedata);
