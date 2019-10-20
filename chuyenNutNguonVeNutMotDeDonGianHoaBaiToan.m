@@ -1,4 +1,4 @@
-function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata)
+function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon)
 % Chuyen nut nguon ve nut 1 de don gian hoa bai toan
     global logLevel
     import logging.*
@@ -6,16 +6,25 @@ function [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(lined
     logger.setLevel(logLevel);
     
     logger.info('(start)')
-    nutmax = max(max(linedata(:, 2:3)));
     
-    m = linedata(:,2) == 1;
-    linedata(m,2) = nutmax+1;
-    
-    m = linedata(:,3) == 1;
-    linedata(m,3) = nutmax + 1;
-    
-    m = powerdata(:,1) == 1;
-    powerdata(m,1) = nutmax + 1;
+%     nutmax = max(max(linedata(:, 2:3)));
+%     
+%     NUT_1 = 1;
+%     NUT_CUOI_CUNG_CONG_MOT = nutmax + 1;
+%     
+%     m = linedata(:, 2) == NUT_1;
+%     linedata(m, 2) = NUT_CUOI_CUNG_CONG_MOT;
+%     
+%     m = linedata(:, 3) == NUT_1;
+%     linedata(m, 3) = NUT_CUOI_CUNG_CONG_MOT;
+%     
+% %     m = powerdata(:, 1) == NUT_1;
+% %     powerdata(m, 1) = NUT_CUOI_CUNG_CONG_MOT;
+%     
+%     lineCount = size(linedata, 1);
+%     linedata = [linedata; lineCount + 1, NUT_1, NUT_CUOI_CUNG_CONG_MOT, 0, 0];
+%     
+%     powerdata = [powerdata; NUT_CUOI_CUNG_CONG_MOT, 0, 0, 0, 0];
     
     for vitriNutNguon = 1:length(nutnguon)
         vitriTrongLinedataMaNutBatDauLaNutNguon = nutnguon(vitriNutNguon) == linedata(:,2);

@@ -1,4 +1,4 @@
-function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal)
+function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal, dienApSauSutAp)
     SIZE_ROW = 1;
     SOLID_CONNECTOR = ' --- ';
     DOTTED_CONNECTOR = ' -.- ';
@@ -7,8 +7,15 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
     R_INDEX = 4;
     X_INDEX = 5;
     DEFAULT_NAME = 'n';
+    global OPEN_BRACKET
+    global CLOSE_BRACKET
     OPEN_BRACKET = '((';
     CLOSE_BRACKET = '))';
+    
+    global HIEN_THI_DIEN_AP_SAU_SUT_AP
+    global HIEN_THI_CONG_SUAT_TINH_TOAN
+    HIEN_THI_DIEN_AP_SAU_SUT_AP = true
+    HIEN_THI_CONG_SUAT_TINH_TOAN = false
 
     STYLE = 'style ';
     FORMAT_OF_NUT_NGUON = ' fill:#FF0,stroke:#333,stroke-width:3px';
@@ -31,9 +38,11 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
        end
 
        fromNode = [DEFAULT_NAME, num2str(from)];
-       fromNodeDetail = [OPEN_BRACKET, '"', fromNode, '<br/>', num2str(getPowerOfNode(powerdata, from)), 'kW', '"', CLOSE_BRACKET];
+       fromNodeDetail = getNodeDetailInfo(from, powerdata, dienApSauSutAp);
        toNode = [DEFAULT_NAME, num2str(to)];
-       toNodeDetail = [OPEN_BRACKET, '"', toNode, '<br/>', num2str(getPowerOfNode(powerdata, to)), 'kW', '"', CLOSE_BRACKET];
+       toNodeDetail = getNodeDetailInfo(to, powerdata, dienApSauSutAp);
+       
+       
        
        line = [selectedLineStyle, '|"'];
        line = [line, 'R=' num2str(R), ';'];
@@ -73,10 +82,35 @@ function isRemoved = isRemovedInFinalLineData(linedata, fromNode, toNode)
 end
 
 function power = getPowerOfNode(powerdata, nodeId) 
-for index = 1:size(powerdata, 1)
-    if(powerdata(index, 1) == nodeId)
-       power =  powerdata(index, 2);
-       break
+    for index = 1:size(powerdata, 1)
+        if(powerdata(index, 1) == nodeId)
+           power =  powerdata(index, 2);
+           break
+        end
     end
 end
+
+function detailInfo = getNodeDetailInfo(nutId, powerdata, dienApSauSutAp)
+global OPEN_BRACKET
+global CLOSE_BRACKET
+global HIEN_THI_DIEN_AP_SAU_SUT_AP
+global HIEN_THI_CONG_SUAT_TINH_TOAN
+
+detailInfo = [OPEN_BRACKET, '"'];
+detailInfo = [detailInfo, num2str(nutId)];
+
+if HIEN_THI_DIEN_AP_SAU_SUT_AP
+    detailInfo = [detailInfo, '<br/>', num2str(tinhDienApSauSutApTaiNut(dienApSauSutAp, nutId)), ' kV'];
+end
+if HIEN_THI_CONG_SUAT_TINH_TOAN
+    detailInfo = [detailInfo, '<br/>', num2str(getPowerOfNode(powerdata, nutId)), ' kW'];
+end
+
+detailInfo = [detailInfo, '"', CLOSE_BRACKET];
+end
+
+function volt = tinhDienApSauSutApTaiNut(dienApSauSutAp, nutId)
+m = nutId == dienApSauSutAp(:, 1);
+volt = dienApSauSutAp(m, 2);
+volt = round(volt, 2);
 end

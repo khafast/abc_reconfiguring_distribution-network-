@@ -99,10 +99,10 @@ baoCaoTienDo(lineDataAfterRun, powerdata);
 [~, powerDataAfterRun] = tinhPowerDataChoCacNhanhHinhTia(Udm, lineDataAfterRun, powerdata);
 logger.info('tinh xong powerDataAfterABC');
 
-dienap = tinhSutApChoTatCaNutSauKhiBoQuaDanhSachCacNhanhCat(Udm, cutlist, linedata, powerDataAfterRun);
-Vmin = min(dienap(:, 2));
-m = Vmin == dienap(:, 2);
-nutVmin = dienap(m, 1);
+dienApSauSutAp = tinhSutApChoTatCaNutSauKhiBoQuaDanhSachCacNhanhCat(Udm, cutlist, linedata, powerDataAfterRun);
+Vmin = min(dienApSauSutAp(:, 2));
+m = Vmin == dienApSauSutAp(:, 2);
+nutVmin = dienApSauSutAp(m, 1);
 
 Ptotalload = sum(powerdata,1);
 Ptotalload = Ptotalload(2);
@@ -137,7 +137,7 @@ logger.info('========');
 
 veHinhSoSanhLineDataBeforeAndAfterRun(linedata, lineDataAfterRun, cutlist);
 
-export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal)
+export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal, dienApSauSutAp)
 logger.info('(SUCCESS)')
 
 logManager.resetAll();
