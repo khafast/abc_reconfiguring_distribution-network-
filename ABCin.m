@@ -8,7 +8,7 @@ logger.setLevel(logLevel);
 logger.info('(Start)')
 
 %he so vong lap 
-h=0.7;
+h=7;
 m=dscat==0;
 dscat(m)=[];
 format short G;

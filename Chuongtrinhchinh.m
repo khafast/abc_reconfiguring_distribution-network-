@@ -64,8 +64,8 @@ figure('Name', 'Luoi dien truoc khi chay chuong trinh');
 plot(taoDoiTuongGraph(linedata), 'Layout', 'force'); view(0, 90);
 
 %Chuyen doi cac nguon ve nut 1
-if nutnguon ~= 1
-    [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata);
+if any(nutnguon ~= 1)
+    [linedata, powerdata] = chuyenNutNguonVeNutMotDeDonGianHoaBaiToan(linedata, powerdata, nutnguon);
 end
 [linedata, powerdata] = xoaCacNutKhongTonTaiTrongLinedata(linedata, powerdata);
 
@@ -114,11 +114,15 @@ DeltaP = Ploss/Ptotal*100;
 logger.info('Phan tich du lieu thu duoc (Success)')
 
 %xuat ra thong so
+cutlist = sort(cutlist, 2, 'descend');
 logger.info('========');
 logger.info(['Danh sach cac nhanh cat: ' chuyenSoThanhChu(cutlist)]);
 logger.info('{');
+linedatafinal = linedata; % for view on diaram tab view data
+
 for vitriCat = 1:numel(cutlist)
     linedataTaiViTriCat = linedata(cutlist(vitriCat), :);
+    linedatafinal(cutlist(vitriCat), :) = [];
     logger.info(['cat nhanh ' num2str(linedataTaiViTriCat(1)) ' (n' chuyenSoThanhChu(linedataTaiViTriCat(2)) ' -> n' chuyenSoThanhChu(linedataTaiViTriCat(3)) ')']);
 end
 logger.info('}');
@@ -133,6 +137,7 @@ logger.info('========');
 
 veHinhSoSanhLineDataBeforeAndAfterRun(linedata, lineDataAfterRun, cutlist);
 
+export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal)
 logger.info('(SUCCESS)')
 
 logManager.resetAll();
