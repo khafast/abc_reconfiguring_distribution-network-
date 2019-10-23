@@ -45,9 +45,9 @@ logger.info('(START)')
 %-----------------------Main-----------------------------------------------
 load('Udm.mat');
 
-%load('du_lieu_NK_3_nguon.mat');
+load('du_lieu_NK_3_nguon_chinh_thuc.mat');
 
-load('du_lieu_16_nut.mat');
+%load('du_lieu_16_nut.mat');
 
 %Du lieu 33 nut
 %load('du_lieu_33_nut.mat');
