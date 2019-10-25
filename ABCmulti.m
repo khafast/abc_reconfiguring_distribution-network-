@@ -148,10 +148,12 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
             for j = 1:nVar
                 n = danhSachCat(:,j+1) == 1;
                 nhanhcat = danhSachCat(n,1);
-                nhanh = layNgauNhienMotNut(nhanhcat);
-                danhSachNhanh(j) = nhanh;
-                m = nhanh == danhSachCat(:,1);
-                danhSachCat(m, :)=[];
+                if numel(nhanhcat) ~= 0
+                    nhanh = layNgauNhienMotNut(nhanhcat);
+                    danhSachNhanh(j) = nhanh;
+                    m = nhanh == danhSachCat(:,1);
+                    danhSachCat(m, :)=[];
+                end
             end
             %xoa nhanh tren linedata
             linedatacat=linedatacatnguon;
@@ -210,8 +212,7 @@ function P = trienKhaiOngLamViec(CostFunction)
     global nhanhthay;
     
     global logger;
-    
-    logger.fine(' ...');
+    logger.info('...')
     
     for i = 1:kickThuocBayOng
         A = 0;
@@ -221,6 +222,9 @@ function P = trienKhaiOngLamViec(CostFunction)
             for j = 1:nVar
                 vitriTrongDanhSach = danhSachCat(:,j+1)==1;
                 nhanhcat = danhSachCat(vitriTrongDanhSach, 1);
+                if numel(nhanhcat) == 0
+                   break; 
+                end
                 vitri = find(p);
                 E = 1;
                 while E == 1
@@ -291,7 +295,7 @@ function P = trienKhaiOngLamViec(CostFunction)
             F(i) = 1 + abs(real(bayOng(i).Cost.ploss));
         end
     end
-    P = F/sum(F);
+    P = F/sum(F);    
 end
 
 %% Giai doan Ong giam sat (Onlooker Bees Phase )
@@ -311,7 +315,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
     
     global logger;
     
-    logger.fine(' ...');
+    logger.info('...');
     
     for vitri = 1:kichThuocBayOngGiamSat
         vitriOng = RouletteWheelSelection(P);
@@ -322,6 +326,9 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
             for j = 1:nVar
                 vitri = danhSachCat(:,j+1) == 1;
                 nhanhcat = danhSachCat(vitri,1);
+                if numel(nhanhcat) == 0
+                   break; 
+                end
                 vitri = find(p);
                 E = 1;
                 while E == 1
@@ -413,7 +420,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
     
     global logger;
     
-    logger.fine('...');
+    logger.info('...');
     
     for i=1:kickThuocBayOng
         if boDemSoLanBoQua(i) >= gioiHanBoQua
@@ -423,13 +430,16 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
                 danhSachCat = matrancat;
                 for j = 1:nVar
                     n = danhSachCat(:, j+1) == 1;
-                    danhSachNhanhCat = danhSachCat(n,1);
                     
-                    nhanhCat = layNgauNhienMotNut(danhSachNhanhCat);
-                    danhSachNhanhCatConLai(j) = nhanhCat;
-                    
-                    m = nhanhCat == danhSachCat(:,1);
-                    danhSachCat(m,:) = [];
+                    if any(n)
+                        danhSachNhanhCat = danhSachCat(n,1);
+
+                        nhanhCat = layNgauNhienMotNut(danhSachNhanhCat);
+                        danhSachNhanhCatConLai(j) = nhanhCat;
+
+                        m = nhanhCat == danhSachCat(:,1);
+                        danhSachCat(m,:) = [];
+                    end
                 end
                 
                 %xoa nhanh tren linedata

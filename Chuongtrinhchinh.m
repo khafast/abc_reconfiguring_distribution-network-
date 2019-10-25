@@ -45,10 +45,10 @@ logger.info('(START)')
 %-----------------------Main-----------------------------------------------
 load('Udm.mat');
 
-%load('du_lieu_NK_3_nguon_chinh_thuc.mat');
+load('du_lieu_NK_3_nguon_chinh_thuc.mat');
 
 %load('du_lieu_NK_40_nut.mat');
-load('du_lieu_NK_41_nut.mat');
+%load('du_lieu_NK_41_nut.mat');
 
 %load('du_lieu_16_nut.mat');
 

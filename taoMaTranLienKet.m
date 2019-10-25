@@ -15,7 +15,7 @@ for i = 1:size(linedata,1)
     nutDau = linedata(i, 2);
     nutCuoi = linedata(i, 3);
     
-    matranVuong(nutDau, nutCuoi) = 1;
-    matranVuong(nutCuoi, nutDau) = 1;
+    matranVuong(nutDau, nutCuoi) = linedata(i, 4);
+    matranVuong(nutCuoi, nutDau) = linedata(i, 4);
 end
 end
