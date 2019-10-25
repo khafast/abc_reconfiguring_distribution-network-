@@ -19,6 +19,7 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
     global HIEN_THI_CONG_SUAT_TINH_TOAN
     HIEN_THI_DIEN_AP_SAU_SUT_AP = true
     HIEN_THI_CONG_SUAT_TINH_TOAN = false
+    HIEN_THI_LINE_DATA = true
 
     STYLE = 'style ';
     FORMAT_OF_NUT_NGUON = ' fill:#FF0,stroke:#333,stroke-width:3px';
@@ -46,12 +47,16 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
        toNodeDetail = getNodeDetailInfo(to, powerdata, dienApSauSutAp);
        
        
-       
        line = [selectedLineStyle, '|"'];
-       line = [line, 'R=' num2str(R), ';'];
-       %line = [line, '<br/>', 'X=' num2str(X), ';'];
+       if(HIEN_THI_LINE_DATA)
+
+           line = [line, 'R=' num2str(R), ';'];
+           %line = [line, '<br/>', 'X=' num2str(X), ';'];
+       else
+           line = [line, ' '];
+       end
        line = [line, '"|'];
-       
+           
        newConnector = [fromNode, fromNodeDetail, line, toNode, toNodeDetail];
 
        diagramContent = [diagramContent, char(10), newConnector];

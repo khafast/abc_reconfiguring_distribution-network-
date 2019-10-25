@@ -147,8 +147,8 @@ function [bayOng, BestSol, p] = khoiTaoBayOngBanDau(bayOng, BestSol, p)
             danhSachCat = matrancat;
             for j = 1:nVar
                 n = danhSachCat(:,j+1) == 1;
-                nhanhcat = danhSachCat(n,1);
-                if numel(nhanhcat) ~= 0
+                if any(n)
+                    nhanhcat = danhSachCat(n,1);
                     nhanh = layNgauNhienMotNut(nhanhcat);
                     danhSachNhanh(j) = nhanh;
                     m = nhanh == danhSachCat(:,1);
@@ -212,7 +212,7 @@ function P = trienKhaiOngLamViec(CostFunction)
     global nhanhthay;
     
     global logger;
-    logger.info('...')
+    logger.fine(' ...')
     
     for i = 1:kickThuocBayOng
         A = 0;
@@ -315,7 +315,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
     
     global logger;
     
-    logger.info('...');
+    logger.fine(' ...');
     
     for vitri = 1:kichThuocBayOngGiamSat
         vitriOng = RouletteWheelSelection(P);
@@ -325,10 +325,11 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
             danhSachCat = matrancat;
             for j = 1:nVar
                 vitri = danhSachCat(:,j+1) == 1;
-                nhanhcat = danhSachCat(vitri,1);
-                if numel(nhanhcat) == 0
+                if ~any(vitri)
                    break; 
                 end
+                
+                nhanhcat = danhSachCat(vitri,1);
                 vitri = find(p);
                 E = 1;
                 while E == 1
@@ -420,7 +421,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
     
     global logger;
     
-    logger.info('...');
+    logger.fine('...');
     
     for i=1:kickThuocBayOng
         if boDemSoLanBoQua(i) >= gioiHanBoQua
