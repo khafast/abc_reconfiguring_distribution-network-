@@ -25,7 +25,7 @@ logger.info('(Start)')
 
 format short G;
 %he so vong lap
-heSoVongLap = 10;
+heSoVongLap = 0.2;
 
 %Pham vi tim ngau nhien TODO: cang chinh chi so nay de ho tro mang 33 nut
 phamViTimNgauNhien = 12;
@@ -116,9 +116,11 @@ for it = 1:soVongLapToiDa
         
         %Xuat trang thai chay
         logger.fine(['Chay vong lap tren vong kep lan  ' num2str(it)]);
-        logger.info(['No.' num2str(it) ' (Success): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) '; (giai phap duoc chon)'])
+        successMessage = ['No.' sprintf('%3d', it) ' [Success]: Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';' ' (giai phap duoc chon)'];
+        successMessage = ['[\b', successMessage, ']\b']; % orange color
+        logger.info(successMessage); 
     else
-        logger.info(['No.' num2str(it) ' (Fail): Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(BestSol.Position) ';'])
+        logger.info(['No.' sprintf('%3d', it) ' [Fail   ]: Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(BestSol.Position) ';'])
     end
     
 end
