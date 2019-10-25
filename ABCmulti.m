@@ -116,11 +116,11 @@ for it = 1:soVongLapToiDa
         
         %Xuat trang thai chay
         logger.fine(['Chay vong lap tren vong kep lan  ' num2str(it)]);
-        successMessage = ['No.' sprintf('%3d', it) ' [Success]: Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';' ' (giai phap duoc chon)'];
+        successMessage = ['No.' sprintf('%3d', it) ': Success: Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(nhanhcat) ';' ' (giai phap duoc chon)'];
         successMessage = ['[\b', successMessage, ']\b']; % orange color
         logger.info(successMessage); 
     else
-        logger.info(['No.' sprintf('%3d', it) ' [Fail   ]: Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(BestSol.Position) ';'])
+        logger.info(['No.' sprintf('%3d', it) ': Failure: Ploss = ' num2str(Ploss) ' kW' '; nhanhcat = ' num2str(BestSol.Position) ';'])
     end
     
 end
