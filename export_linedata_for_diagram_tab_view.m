@@ -17,9 +17,9 @@ function export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, lin
     
     global HIEN_THI_DIEN_AP_SAU_SUT_AP
     global HIEN_THI_CONG_SUAT_TINH_TOAN
-    HIEN_THI_DIEN_AP_SAU_SUT_AP = true
-    HIEN_THI_CONG_SUAT_TINH_TOAN = false
-    HIEN_THI_LINE_DATA = true
+    HIEN_THI_DIEN_AP_SAU_SUT_AP = true;
+    HIEN_THI_CONG_SUAT_TINH_TOAN = false;
+    HIEN_THI_LINE_DATA = true;
 
     STYLE = 'style ';
     FORMAT_OF_NUT_NGUON = ' fill:#FF0,stroke:#333,stroke-width:3px';

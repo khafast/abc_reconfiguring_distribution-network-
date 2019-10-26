@@ -45,22 +45,12 @@ logger.info('(START)')
 %-----------------------Main-----------------------------------------------
 load('Udm.mat');
 
-%load('du_lieu_NK_3_nguon_chinh_thuc.mat');
+%load('du_lieu_16_bus.mat');
+%load('du_lieu_27_bus.mat');
+%load('du_lieu_33_bus.mat');
+%load('du_lieu_40_bus.mat');
+load('du_lieu_547_bus.mat');
 
-load('du_lieu_NK_40_nut.mat');
-
-%load('du_lieu_16_nut.mat');
-
-%Du lieu 33 nut
-%load('du_lieu_33_nut.mat');
-
-%Du lieu 27 nut
-%load('linedata.mat');  load('powerdata.mat');load('nutnguon.mat');
-%Du lieu moi
-%load('linetest.mat');  load('powertest.mat'); load('nutnguontest.mat');linedata=linetest; powerdata=powertest; nutnguon=nutnguontest;
-
-%Du lieu luoi sa dec
-%load('sdlinedata.mat');load('sdpowerdata.mat');load('sdnutnguon.mat');linedata=sdlinedata; powerdata=sdpowerdata; nutnguon=sdnutnguon;
 
 figure('Name', 'Luoi dien truoc khi chay chuong trinh'); 
 plot(taoDoiTuongGraph(linedata), 'Layout', 'force'); view(0, 90);

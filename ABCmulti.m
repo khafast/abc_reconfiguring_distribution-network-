@@ -25,7 +25,7 @@ logger.info('(Start)')
 
 format short G;
 %he so vong lap
-heSoVongLap = 0.2;
+heSoVongLap = 3;
 
 %Pham vi tim ngau nhien TODO: cang chinh chi so nay de ho tro mang 33 nut
 phamViTimNgauNhien = 12;
