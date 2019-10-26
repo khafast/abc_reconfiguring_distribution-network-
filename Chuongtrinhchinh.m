@@ -45,11 +45,11 @@ logger.info('(START)')
 %-----------------------Main-----------------------------------------------
 load('Udm.mat');
 
-%load('du_lieu_16_bus.mat');
+load('du_lieu_16_bus.mat');
 %load('du_lieu_27_bus.mat');
 %load('du_lieu_33_bus.mat');
 %load('du_lieu_40_bus.mat');
-load('du_lieu_547_bus.mat');
+%load('du_lieu_547_bus.mat');
 
 
 figure('Name', 'Luoi dien truoc khi chay chuong trinh'); 
@@ -139,7 +139,7 @@ logger.info(['Sut ap lon nhat o nut #' chuyenSoThanhChu(nutVmin') ' = ' chuyenSo
 logger.info(['Phan tram sut ap DeltaUmin = '  chuyenSoThanhChu((1-Vmin/22)*100) '%%']);
 logger.info('========');
 
-%veHinhSoSanhLineDataBeforeAndAfterRun(linedata, lineDataAfterRun, cutlist);
+veHinhSoSanhLineDataBeforeAndAfterRun(linedata, cutlist);
 
 export_linedata_for_diagram_tab_view(linedata, powerdata, nutnguon, linedatafinal, dienApSauSutAp)
 logger.info('(SUCCESS)')
