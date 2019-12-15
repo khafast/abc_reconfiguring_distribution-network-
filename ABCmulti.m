@@ -283,8 +283,12 @@ function P = trienKhaiOngLamViec(CostFunction)
         % Comparision
         if real(newbee.Cost.ploss) <= real(bayOng(i).Cost.ploss)
             bayOng(i) = newbee;
+            successMessage = ['ong ' num2str(i) ', Success: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';'];
+            successMessage = ['[\b', successMessage, ']\b']; % orange color
+            logger.info(successMessage);
         else
             boDemSoLanBoQua(i) = boDemSoLanBoQua(i) + 1;
+            logger.info(['ong ' num2str(i) ', Failure: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
         end
     end
     
@@ -319,7 +323,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
     
     logger.fine(' ...');
     
-    for vitri = 1:kichThuocBayOngGiamSat
+    for i = 1:kichThuocBayOngGiamSat
         vitriOng = RouletteWheelSelection(P);
         A = 0;
         danhSachNhanh = [];
@@ -384,6 +388,7 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
                 nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
             end
         end
+        
         newbee.Position = nhanhcatthuc;
         % Evaluation
         [ploss, power] = CostFunction(newbee.Position);
@@ -393,8 +398,12 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
         % So sanh ket qua giua ong lam viec va ong giam sat
         if real(newbee.Cost.ploss) <= real(bayOng(vitriOng).Cost.ploss)
             bayOng(vitriOng) = newbee;
+            successMessage = ['lan can ong ' num2str(i) ', Better: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';'];
+            successMessage = ['[\b', successMessage, ']\b']; % orange color
+            logger.info(successMessage);
         else
             boDemSoLanBoQua(vitriOng) = boDemSoLanBoQua(vitriOng)+1;
+            logger.info(['lan can ong ' num2str(i) ', Poorer: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
         end
     end
 end
@@ -476,10 +485,13 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
                     nhanhcatthuc(length(nhanhcatthuc)+1) = nhanhthay1;
                 end
             end
+            
             bayOng(i).Position = nhanhcatthuc;
             [ploss, power] = CostFunction(bayOng(i).Position);
             bayOng(i).Cost.ploss = ploss;
             bayOng(i).Cost.power = power;
+            
+            logger.info(['thay the ong ' num2str(i) ', Failure: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
             boDemSoLanBoQua(i)=0;
         end
     end
