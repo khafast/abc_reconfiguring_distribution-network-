@@ -491,7 +491,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
             bayOng(i).Cost.ploss = ploss;
             bayOng(i).Cost.power = power;
             
-            logger.info(['thay the ong ' num2str(i) ', Failure: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
+            logger.info(['thay the ong ' num2str(i) ' (' num2str(boDemSoLanBoQua(i)) ' Failures), Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
             boDemSoLanBoQua(i)=0;
         end
     end
