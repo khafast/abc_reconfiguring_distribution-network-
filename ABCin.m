@@ -89,6 +89,10 @@ for it=1:MaxIt
         % Comparision
         if real(newbee.Cost.ploss)<=real(pop(i).Cost.ploss)
             pop(i)=newbee;
+            
+            successMessage = ['ong ' num2str(i) ', Success: Ploss = ' num2str(real(newbee.Cost.ploss)) ' kW' '; nhanhcat = ' num2str(newbee.Position) ';'];
+            successMessage = ['[\b', successMessage, ']\b']; % orange color
+            logger.fine(successMessage);
         else
             C(i)=C(i)+1;
         end
@@ -123,11 +127,13 @@ for it=1:MaxIt
         end
         newbee.Position = dscat(i+phi);
         % Evaluation
-        [newbee.Cost.ploss,newbee.Cost.power]=CostFunction(newbee.Position);
+        [newbee.Cost.ploss, newbee.Cost.power]=CostFunction(newbee.Position);
 
         % Comparision
         if real(newbee.Cost.ploss)<=real(pop(i).Cost.ploss)
             pop(i)=newbee;
+            
+            
         else
             C(i)=C(i)+1;
         end

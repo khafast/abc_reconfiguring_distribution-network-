@@ -285,10 +285,10 @@ function P = trienKhaiOngLamViec(CostFunction)
             bayOng(i) = newbee;
             successMessage = ['ong ' num2str(i) ', Success: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';'];
             successMessage = ['[\b', successMessage, ']\b']; % orange color
-            logger.info(successMessage);
+            logger.fine(successMessage);
         else
             boDemSoLanBoQua(i) = boDemSoLanBoQua(i) + 1;
-            logger.info(['ong ' num2str(i) ', Failure: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
+            logger.fine(['ong ' num2str(i) ', Failure: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
         end
     end
     
@@ -400,10 +400,10 @@ function [bayOng] = trienKhaiOngGiamSat(P, CostFunction, bayOng, kichThuocBayOng
             bayOng(vitriOng) = newbee;
             successMessage = ['lan can ong ' num2str(i) ', Better: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';'];
             successMessage = ['[\b', successMessage, ']\b']; % orange color
-            logger.info(successMessage);
+            logger.fine(successMessage);
         else
             boDemSoLanBoQua(vitriOng) = boDemSoLanBoQua(vitriOng)+1;
-            logger.info(['lan can ong ' num2str(i) ', Poorer: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
+            logger.fine(['lan can ong ' num2str(i) ', Poorer: Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
         end
     end
 end
@@ -491,7 +491,7 @@ function [bayOng] = trienKhaiOngTrinhSat(CostFunction, bayOng, gioiHanBoQua)
             bayOng(i).Cost.ploss = ploss;
             bayOng(i).Cost.power = power;
             
-            logger.info(['thay the ong ' num2str(i) ' (' num2str(boDemSoLanBoQua(i)) ' Failures), Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
+            logger.fine(['thay the ong ' num2str(i) ' (' num2str(boDemSoLanBoQua(i)) ' Failures), Ploss = ' num2str(real(ploss)) ' kW' '; nhanhcat = ' num2str(nhanhcatthuc) ';']);
             boDemSoLanBoQua(i)=0;
         end
     end

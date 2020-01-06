@@ -28,8 +28,10 @@ feature('DefaultCharacterSet','UTF-8');
 %%Chuan bi logger cho chuong trinh chinh
 import logging.*
 global logLevel
+%logLevel = Level.INFO;
+logLevel = Level.FINE; 
 %logLevel = Level.FINER; 
-logLevel = Level.INFO;
+
 % get the global LogManager
 logManager = LogManager.getLogManager();
 
@@ -47,13 +49,15 @@ load('Udm.mat');
 
 %load('du_lieu_16_bus.mat');
 %load('du_lieu_27_bus.mat');
-%load('du_lieu_33_bus.mat');
+load('du_lieu_33_bus.mat');
 %load('du_lieu_40_bus.mat');
-load('du_lieu_547_bus.mat');
+%load('du_lieu_547_bus.mat');
 
 
 figure('Name', 'Luoi dien truoc khi chay chuong trinh'); 
-plot(taoDoiTuongGraph(linedata), 'Layout', 'force'); view(0, 90);
+G = taoDoiTuongGraph(linedata);
+bieuDo = plot(G, 'Layout', 'force'); view(0, 90);
+chinhMauSacChoBieuDo(bieuDo, G);
 
 %Chuyen doi cac nguon ve nut 1
 danhsachLineDataChuaNutNguon = [];

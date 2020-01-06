@@ -7,7 +7,9 @@ function veHinhSoSanhLineDataBeforeAndAfterRun(linedata, cutlist)
     end
     
     G = taoDoiTuongGraph(lineDataAfterRun);
-    figure('Name', 'Luoi dien sau khi tinh toan'); plot(G);
+    figure('Name', 'Luoi dien sau khi tinh toan'); 
+    bieuDo = plot(G);
+    chinhMauSacChoBieuDo(bieuDo, G);
 
     edgeLabel = cell(1, size(G.Edges, 1));
     for i = 1:numel(edgeLabel)
